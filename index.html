@@ -353,20 +353,20 @@
                 <div class="automation-card">
                     <div class="automation-header">
                         <h3>💰 Federal Grant Tracker</h3>
-                        <span class="status-badge status-pending">Pending Setup</span>
+                        <span class="status-badge status-active">Active</span>
                     </div>
-                    <p class="automation-desc">Monitor DOE, EPA, and state energy department funding opportunities for CCUS, geothermal, and well remediation</p>
+                    <p class="automation-desc">Daily Grants.gov search2 + DOE feeds for CCUS, geothermal, orphan wells, solution mining, hydrogen storage</p>
                     <div class="automation-details">
                         <strong>Target Sources:</strong>
                         <ul>
+                            <li>Grants.gov (search2/fetchOpportunity API)</li>
                             <li>DOE FECM (Fossil Energy & Carbon Management)</li>
                             <li>DOE Geothermal Technologies Office</li>
-                            <li>EPA Orphan Well Program</li>
-                            <li>State energy offices (CA, TX, NM, CO)</li>
-                            <li>ARPA-E energy innovation funding</li>
+                            <li>EPA / DOI orphan-well programs</li>
+                            <li>ARPA-E & state energy funding boards</li>
                         </ul>
-                        <strong>Value:</strong> $50M+ in annual grant opportunities aligned with Gunnar's expertise<br>
-                        <strong>Status:</strong> Requires Grants.gov API integration + keyword matching system
+                        <strong>Value:</strong> $50M+ in annual adjacencies (CCUS, EGS, hydrogen caverns, P&A)<br>
+                        <strong>Status:</strong> Live queries, WhatsApp alerts triggered daily
                     </div>
                 </div>
             </a>
@@ -488,7 +488,8 @@
                 <li><strong>RFP Scraper:</strong> Python script using BeautifulSoup + Selenium for portal navigation. Runs via OpenClaw cron (daily 9am PST). Stores results in SQLite, diffs against previous scan, sends alerts via message tool.</li>
                 <li><strong>CCUS Monitor:</strong> Queries EPA ECHO API + state UIC databases. Weekly cron job (Friday 5pm). Outputs new permits to structured log for manual review.</li>
                 <li><strong>LinkedIn Listener:</strong> Awaiting Sales Navigator integration or third-party mention tracking service (Mention.com, Brand24). Manual monitoring interim.</li>
-                <li><strong>Pending Automations:</strong> Federal Grant Tracker, Target Account Signals, Warm Intro Finder, Industry Event Monitor, Competitor Intelligence, and Market Trend Analyzer are designed and ready for development. Each system estimated at 2-5 days of engineering effort. Priority should be based on immediate pipeline impact.</li>
+                <li><strong>Federal Grant Tracker:</strong> Hits Grants.gov search2 + DOE feeds daily (08:00 PT). Filters CCUS, geothermal/EGS, orphan wells, oil & gas P&A, solution mining, hydrogen storage. Alerts via WhatsApp + dashboard.</li>
+                <li><strong>Pending Automations:</strong> Target Account Signals, Warm Intro Finder, Industry Event Monitor, Competitor Intelligence, and Market Trend Analyzer are designed and ready for development. Each system estimated at 2-5 days of engineering effort. Priority should be based on immediate pipeline impact.</li>
             </ul>
         </div>
     </div>
