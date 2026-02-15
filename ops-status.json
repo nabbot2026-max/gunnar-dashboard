@@ -1,26 +1,17 @@
 {
-  "updatedAt": "2026-02-15T14:55:59.898123-08:00",
-  "totalTracked": 5,
-  "runningSystems": [
-    "RFP Scraper",
-    "CCUS Monitor",
-    "Cron heartbeat"
-  ],
-  "manualSystems": [
-    "Federal Grant Tracker (manual throttle mode)"
-  ],
-  "blockedSystems": [
-    "LinkedIn Listener (awaiting Sales Navigator access)"
-  ],
-  "selfDevelopment": {
-    "completed": 4,
-    "total": 12,
-    "inProgress": [
-      "**Homebrew baseline audit** \u2014 verify GNU coreutils/findutils/sed + wget installs, document versions, and script `brew bundle dump` for reproducibility.",
-      "**Automation cron review** \u2014 confirm daily (RFP) and weekly (CCUS) jobs are present in OpenClaw cron, add health pings when a run misses twice.",
-      "**RESTORE.md expansion** \u2014 extend workspace restore guide with GitHub/Drive steps + Tailscale/SSH checklist."
+  "automation": {
+    "totalTracked": 5,
+    "runningSystems": [
+      "RFP Scraper",
+      "CCUS Monitor",
+      "Cron heartbeat"
     ],
-    "backlogCount": 5
+    "manualSystems": [
+      "Federal Grant Tracker (manual throttle mode)"
+    ],
+    "blockedSystems": [
+      "LinkedIn Listener (awaiting Sales Navigator access)"
+    ]
   },
   "tokenUsage": {
     "window": "Feb 2026",
