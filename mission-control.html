@@ -193,6 +193,65 @@
             padding: 0.25rem 0.75rem;
             font-size: 0.8rem;
         }
+        .kanban-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+        .kanban-column {
+            background: rgba(148, 163, 184, 0.08);
+            border: 1px solid var(--panel-border);
+            border-radius: 16px;
+            padding: 1rem;
+            min-height: 200px;
+        }
+        .kanban-column h3 {
+            margin: 0 0 0.75rem 0;
+            font-size: 0.95rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .kanban-card {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 12px;
+            padding: 0.75rem;
+            margin-bottom: 0.75rem;
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            font-size: 0.9rem;
+        }
+        .kanban-card small {
+            display: block;
+            color: var(--muted);
+            margin-top: 0.35rem;
+        }
+        .gantt {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .gantt-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+        .gantt-label {
+            font-size: 0.85rem;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+        }
+        .gantt-bar-shell {
+            background: rgba(148, 163, 184, 0.15);
+            border-radius: 999px;
+            height: 10px;
+            overflow: hidden;
+        }
+        .gantt-bar {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #67e8f9, #a855f7);
+        }
         @media (max-width: 768px) {
             header { flex-direction: column; align-items: flex-start; }
             .nav-links { width: 100%; }
@@ -446,6 +505,73 @@
                     <li>Rotate Anthropic / Brave / Discord / Telegram tokens if compromised</li>
                 </ul>
                 <p style="color: var(--muted); line-height: 1.6;">After any incident: revoke API keys, reset bot tokens, review <code>/tmp/openclaw</code> logs, then bring the gateway back up.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2 class="section-title">Ops Kanban — Self Development</h2>
+        <p style="color: var(--muted); line-height:1.6;">Source of truth lives in <code>ops-kanban.md</code>, mirrored here so you can scan status without leaving the dashboard.</p>
+        <div class="kanban-grid">
+            <div class="kanban-column">
+                <h3>Backlog</h3>
+                <div class="kanban-card">Pyenv + pipx realignment<small>Install Python 3.12 via pyenv and point pipx at it.</small></div>
+                <div class="kanban-card">Disk-usage watchdog<small>launchd job to ping WhatsApp when root volume >85%.</small></div>
+                <div class="kanban-card">Config snapshot & migration doc<small>Snapshot gateway + Tailscale settings for fast rebuilds.</small></div>
+                <div class="kanban-card">Grant tracker throttle fix<small>Respect Grants.gov 5 req/min limit or add API key.</small></div>
+                <div class="kanban-card">Mission-control JSON feed<small>Expose data for auto-refreshing dashboard cards.</small></div>
+            </div>
+            <div class="kanban-column">
+                <h3>In Progress</h3>
+                <div class="kanban-card">Homebrew baseline audit<small>Confirm GNU tool versions + capture <code>brew bundle</code>.</small></div>
+                <div class="kanban-card">Automation cron review<small>Verify daily/weekly jobs + add miss-detection pings.</small></div>
+                <div class="kanban-card">RESTORE.md expansion<small>Document GitHub/Drive/Tailscale restore flow.</small></div>
+            </div>
+            <div class="kanban-column">
+                <h3>Done</h3>
+                <div class="kanban-card">Node 22 + pnpm toolchain</div>
+                <div class="kanban-card">Launchd gateway management</div>
+                <div class="kanban-card">Haiku heartbeat + Brave search</div>
+                <div class="kanban-card">Automation runbook surfacing</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2 class="section-title">Ops Gantt Snapshot</h2>
+        <p style="color: var(--muted); line-height:1.6;">Simple progress view for the active punch list (ETA = target ship date this week).</p>
+        <div class="gantt">
+            <div class="gantt-row">
+                <div class="gantt-label"><span>Homebrew baseline audit</span><span>ETA: Feb 18 • 40%</span></div>
+                <div class="gantt-bar-shell"><div class="gantt-bar" style="width:40%;"></div></div>
+            </div>
+            <div class="gantt-row">
+                <div class="gantt-label"><span>Automation cron review</span><span>ETA: Feb 18 • 30%</span></div>
+                <div class="gantt-bar-shell"><div class="gantt-bar" style="width:30%;"></div></div>
+            </div>
+            <div class="gantt-row">
+                <div class="gantt-label"><span>RESTORE.md expansion</span><span>ETA: Feb 19 • 25%</span></div>
+                <div class="gantt-bar-shell"><div class="gantt-bar" style="width:25%;"></div></div>
+            </div>
+            <div class="gantt-row">
+                <div class="gantt-label"><span>Pyenv + pipx realignment</span><span>ETA: Feb 20 • 5%</span></div>
+                <div class="gantt-bar-shell"><div class="gantt-bar" style="width:5%;"></div></div>
+            </div>
+            <div class="gantt-row">
+                <div class="gantt-label"><span>Disk-usage watchdog</span><span>ETA: Feb 21 • 10%</span></div>
+                <div class="gantt-bar-shell"><div class="gantt-bar" style="width:10%;"></div></div>
+            </div>
+            <div class="gantt-row">
+                <div class="gantt-label"><span>Config snapshot & migration doc</span><span>ETA: Feb 21 • 15%</span></div>
+                <div class="gantt-bar-shell"><div class="gantt-bar" style="width:15%;"></div></div>
+            </div>
+            <div class="gantt-row">
+                <div class="gantt-label"><span>Grant tracker throttle fix</span><span>ETA: Feb 22 • 0%</span></div>
+                <div class="gantt-bar-shell"><div class="gantt-bar" style="width:2%;"></div></div>
+            </div>
+            <div class="gantt-row">
+                <div class="gantt-label"><span>Mission-control JSON feed</span><span>ETA: Feb 23 • 0%</span></div>
+                <div class="gantt-bar-shell"><div class="gantt-bar" style="width:2%;"></div></div>
             </div>
         </div>
     </section>
