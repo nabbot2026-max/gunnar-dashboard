@@ -356,9 +356,9 @@
                     <h3 style="margin:0 0 0.35rem 0; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size:0.85rem;">Automation Loops</h3>
                     <p id="automationSummary" style="margin:0; line-height:1.6; color: var(--muted);">Three automation loops are currently running unattended (RFP Scraper, CCUS Monitor, Cron heartbeat).</p>
                     <ul>
-                        <li><strong>Running:</strong> <span id="runningText">RFP Scraper · CCUS Monitor · Cron heartbeat</span></li>
-                        <li><strong>Manual/Queued:</strong> <span id="manualText">Federal grant tracker (429 guard)</span></li>
-                        <li><strong>Blocked:</strong> <span id="blockedText">LinkedIn Listener</span></li>
+                        <li><strong>Running:</strong> <span id="runningText"><a href="#auto-rfp">RFP Scraper</a> · <a href="#auto-ccus">CCUS Monitor</a> · <a href="#auto-heartbeat">Cron heartbeat</a></span></li>
+                        <li><strong>Manual/Queued:</strong> <span id="manualText"><a href="#auto-grants">Federal grant tracker</a></span></li>
+                        <li><strong>Blocked:</strong> <span id="blockedText"><a href="#auto-linkedin">LinkedIn Listener</a></span></li>
                     </ul>
                     <small id="automationUpdated" style="color: var(--muted); display:block; margin-top:0.5rem;">Updated just now</small>
                 </div>
@@ -408,25 +408,25 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>RFP Scraper</td>
+                            <td><a href="#auto-rfp">RFP Scraper</a></td>
                             <td><span class="badge badge-active">OK</span></td>
                             <td>Today · 09:07</td>
                             <td>2 new bids (CalGEM, NM OCD)</td>
                         </tr>
                         <tr>
-                            <td>CCUS Permit Monitor</td>
+                            <td><a href="#auto-ccus">CCUS Permit Monitor</a></td>
                             <td><span class="badge badge-active">OK</span></td>
                             <td>Feb 15 · 17:02</td>
                             <td>Talos hub → pipeline refresh</td>
                         </tr>
                         <tr>
-                            <td>Grant Tracker</td>
+                            <td><a href="#auto-grants">Grant Tracker</a></td>
                             <td><span class="badge badge-alert">Alert</span></td>
                             <td>Today · 08:04</td>
                             <td>API 429 retry required</td>
                         </tr>
                         <tr>
-                            <td>LinkedIn Listener</td>
+                            <td><a href="#auto-linkedin">LinkedIn Listener</a></td>
                             <td><span class="badge badge-pending">Pending</span></td>
                             <td>–</td>
                             <td>Await Sales Navigator token</td>
@@ -446,6 +446,12 @@
                     </thead>
                     <tbody>
                         <tr>
+                            <td><a href="#auto-heartbeat">Cron Heartbeat</a></td>
+                            <td><span class="badge badge-active">OK</span></td>
+                            <td>Hourly</td>
+                            <td>Haiku sanity + pending cron sweep</td>
+                        </tr>
+                        <tr>
                             <td>Target Account Signals</td>
                             <td><span class="badge badge-pending">Building</span></td>
                             <td>–</td>
@@ -463,14 +469,73 @@
                             <td>–</td>
                             <td>Needs calendar ingestion</td>
                         </tr>
-                        <tr>
-                            <td>Competitor Intelligence</td>
-                            <td><span class="badge badge-pending">Backlog</span></td>
-                            <td>–</td>
-                            <td>NLP + scraping module</td>
-                        </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="card" id="automation-details">
+        <h2 class="section-title">Automation Detail Deck</h2>
+        <div class="system-grid">
+            <div class="system-card" id="auto-rfp">
+                <h4>RFP Scraper <span class="badge badge-active">Running</span></h4>
+                <p style="color: var(--muted); line-height:1.6;">Daily 09:00 PST crawl across CalGEM, NM OCD, COGCC, LA DNR, and DOE orphan-well portals. Outputs land in SQLite + WhatsApp alerts.</p>
+                <ul class="chip-list">
+                    <li>Next run: Tomorrow 09:00</li>
+                    <li>Runtime: 12 min avg</li>
+                    <li>Owner: Skynet automation</li>
+                </ul>
+                <p style="color: var(--muted); line-height:1.6;">Action items: tighten diff logic for NM OCD; add LA DNR captcha bypass; mirror results to mission-control feed.</p>
+                <div class="gantt-bar-shell" style="margin-top:0.5rem;"><div class="gantt-bar" style="width:70%;"></div></div>
+                <small style="color: var(--muted);">Milestone: NM OCD diff patch · Feb 18</small>
+            </div>
+            <div class="system-card" id="auto-ccus">
+                <h4>CCUS Permit Monitor <span class="badge badge-active">Running</span></h4>
+                <p style="color: var(--muted); line-height:1.6;">Weekly Friday 17:00 PST sweep of EPA Class VI, TX RRC, LA DNR, DOE 45Q registry. Sends new permits to pipeline.</p>
+                <ul class="chip-list">
+                    <li>Next run: Feb 21</li>
+                    <li>Runtime: 8 min avg</li>
+                    <li>Owner: Skynet automation</li>
+                </ul>
+                <p style="color: var(--muted); line-height:1.6;">Next steps: add ND + WY UIC feeds; auto-tag opportunities in pipeline.json.</p>
+                <div class="gantt-bar-shell" style="margin-top:0.5rem;"><div class="gantt-bar" style="width:55%;"></div></div>
+                <small style="color: var(--muted);">Milestone: ND/WY feed integration · Feb 22</small>
+            </div>
+            <div class="system-card" id="auto-grants">
+                <h4>Federal Grant Tracker <span class="badge badge-alert">Manual</span></h4>
+                <p style="color: var(--muted); line-height:1.6;">Grants.gov + DOE feeds are wired but throttled; we run ad hoc until spacing/API key fix lands.</p>
+                <ul class="chip-list">
+                    <li>Manual trigger: <code>python3 scrapers/grant_tracker.py</code></li>
+                    <li>Daily 08:00 cron paused</li>
+                    <li>Owner: Skynet (manual)</li>
+                </ul>
+                <p style="color: var(--muted); line-height:1.6;">Todo: implement 5 req/min backoff + optional API key; push results into mission-control data automatically.</p>
+                <div class="gantt-bar-shell" style="margin-top:0.5rem;"><div class="gantt-bar" style="width:20%;"></div></div>
+                <small style="color: var(--muted);">Milestone: Throttle fix · Feb 22</small>
+            </div>
+            <div class="system-card" id="auto-linkedin">
+                <h4>LinkedIn Listener <span class="badge badge-pending">Blocked</span></h4>
+                <p style="color: var(--muted); line-height:1.6;">Monitors mentions + buying signals once Sales Navigator API access lands. Currently awaiting credentials.</p>
+                <ul class="chip-list">
+                    <li>Status: Access request pending</li>
+                    <li>Owner: Nabil (auth)</li>
+                </ul>
+                <p style="color: var(--muted); line-height:1.6;">Action items: secure Sales Navigator token, finalize mention keywords, hook into mission-control feed.</p>
+                <div class="gantt-bar-shell" style="margin-top:0.5rem;"><div class="gantt-bar" style="width:5%;"></div></div>
+                <small style="color: var(--muted);">Milestone: Token granted · TBD</small>
+            </div>
+            <div class="system-card" id="auto-heartbeat">
+                <h4>Cron Heartbeat <span class="badge badge-active">Running</span></h4>
+                <p style="color: var(--muted); line-height:1.6;">Hourly Claude Haiku ping that keeps the gateway healthy, checks scheduled jobs, and surfaces alerts.</p>
+                <ul class="chip-list">
+                    <li>Model: Claude 3.5 Haiku</li>
+                    <li>Interval: 60 min</li>
+                    <li>Alerts: WhatsApp + dashboard badge</li>
+                </ul>
+                <p style="color: var(--muted); line-height:1.6;">Upcoming tweaks: add token budget check + auto refresh mission-control JSON.</p>
+                <div class="gantt-bar-shell" style="margin-top:0.5rem;"><div class="gantt-bar" style="width:35%;"></div></div>
+                <small style="color: var(--muted);">Milestone: JSON auto-refresh hook · Feb 23</small>
             </div>
         </div>
     </section>
@@ -707,6 +772,25 @@
             }
         }
 
+        const automationAnchorMap = {
+            "RFP Scraper": "#auto-rfp",
+            "CCUS Monitor": "#auto-ccus",
+            "Cron heartbeat": "#auto-heartbeat",
+            "Cron Heartbeat": "#auto-heartbeat",
+            "Federal Grant Tracker (manual throttle mode)": "#auto-grants",
+            "Federal grant tracker": "#auto-grants",
+            "LinkedIn Listener (awaiting Sales Navigator access)": "#auto-linkedin",
+            "LinkedIn Listener": "#auto-linkedin"
+        };
+
+        function formatAutomationList(items) {
+            if (!items || !items.length) return '—';
+            return items.map(item => {
+                const href = automationAnchorMap[item] || automationAnchorMap[item.replace(/\s+\(.*\)/, '')];
+                return href ? `<a href="${href}">${item.replace(/\s+\(.*\)/, '')}</a>` : item;
+            }).join(' · ');
+        }
+
         function updateAutomationGauge(data) {
             const running = data.runningSystems?.length || 0;
             const total = data.totalTracked || running;
@@ -722,11 +806,11 @@
                 summary.textContent = `${running} automation loop${running === 1 ? '' : 's'} currently running unattended.`;
             }
             const runningText = document.getElementById('runningText');
-            if (runningText) runningText.textContent = (data.runningSystems || ['—']).join(' · ');
+            if (runningText) runningText.innerHTML = formatAutomationList(data.runningSystems);
             const manualText = document.getElementById('manualText');
-            if (manualText) manualText.textContent = (data.manualSystems?.length ? data.manualSystems : ['—']).join(' · ');
+            if (manualText) manualText.innerHTML = formatAutomationList(data.manualSystems);
             const blockedText = document.getElementById('blockedText');
-            if (blockedText) blockedText.textContent = (data.blockedSystems?.length ? data.blockedSystems : ['—']).join(' · ');
+            if (blockedText) blockedText.innerHTML = formatAutomationList(data.blockedSystems);
             const updated = document.getElementById('automationUpdated');
             if (updated && data.updatedAt) {
                 updated.textContent = `Updated ${new Date(data.updatedAt).toLocaleString()}`;
