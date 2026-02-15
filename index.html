@@ -142,6 +142,11 @@
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
+        .automation-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
         .automation-card {
             background: white;
             border: 2px solid #e2e8f0;
@@ -282,26 +287,28 @@
         <h2 style="color: #2d3748; margin-bottom: 1rem; margin-top: 2rem;">🤖 Automation Systems</h2>
         
         <div class="automation-grid">
-            <div class="automation-card">
-                <div class="automation-header">
-                    <h3>📋 RFP Scraper</h3>
-                    <span class="status-badge status-active">Active</span>
+            <a class="automation-card-link" href="automation.html#rfp-scraper-results">
+                <div class="automation-card">
+                    <div class="automation-header">
+                        <h3>📋 RFP Scraper</h3>
+                        <span class="status-badge status-active">Active</span>
+                    </div>
+                    <p class="automation-desc">Monitors state procurement portals for well plugging & relief well opportunities</p>
+                    <div class="automation-details">
+                        <strong>Monitoring:</strong>
+                        <ul>
+                            <li>CalGEM (CA) - Daily checks</li>
+                            <li>NM OCD (New Mexico) - Daily</li>
+                            <li>CO COGCC (Colorado) - Daily</li>
+                            <li>LA DNR (Louisiana) - Daily</li>
+                            <li>DOE Orphan Well Program - Weekly</li>
+                        </ul>
+                        <strong>Keywords:</strong> "well plugging", "relief well", "P&A", "CCUS", "Class VI"<br>
+                        <strong>Alerts:</strong> WhatsApp notification on new RFPs<br>
+                        <strong>Last check:</strong> <span id="rfpLastCheck">2026-02-15 09:00 PST</span>
+                    </div>
                 </div>
-                <p class="automation-desc">Monitors state procurement portals for well plugging & relief well opportunities</p>
-                <div class="automation-details">
-                    <strong>Monitoring:</strong>
-                    <ul>
-                        <li>CalGEM (CA) - Daily checks</li>
-                        <li>NM OCD (New Mexico) - Daily</li>
-                        <li>CO COGCC (Colorado) - Daily</li>
-                        <li>LA DNR (Louisiana) - Daily</li>
-                        <li>DOE Orphan Well Program - Weekly</li>
-                    </ul>
-                    <strong>Keywords:</strong> "well plugging", "relief well", "P&A", "CCUS", "Class VI"<br>
-                    <strong>Alerts:</strong> WhatsApp notification on new RFPs<br>
-                    <strong>Last check:</strong> <span id="rfpLastCheck">2026-02-15 09:00 PST</span>
-                </div>
-            </div>
+            </a>
 
             <div class="automation-card">
                 <div class="automation-header">
@@ -321,144 +328,158 @@
                 </div>
             </div>
 
-            <div class="automation-card">
-                <div class="automation-header">
-                    <h3>🛢️ CCUS Permit Monitor</h3>
-                    <span class="status-badge status-active">Active</span>
+            <a class="automation-card-link" href="automation.html#ccus-monitor-results">
+                <div class="automation-card">
+                    <div class="automation-header">
+                        <h3>🛢️ CCUS Permit Monitor</h3>
+                        <span class="status-badge status-active">Active</span>
+                    </div>
+                    <p class="automation-desc">Weekly checks on EPA Class VI filings for upcoming projects needing relief contracts</p>
+                    <div class="automation-details">
+                        <strong>Sources:</strong>
+                        <ul>
+                            <li>EPA Class VI UIC Permit Database</li>
+                            <li>State UIC programs (TX, LA, ND, WY)</li>
+                            <li>DOE 45Q project registry</li>
+                        </ul>
+                        <strong>Frequency:</strong> Weekly scan<br>
+                        <strong>Next check:</strong> <span id="ccusNextCheck">2026-02-21</span><br>
+                        <strong>New permits since Jan 1:</strong> 3 detected
+                    </div>
                 </div>
-                <p class="automation-desc">Weekly checks on EPA Class VI filings for upcoming projects needing relief contracts</p>
-                <div class="automation-details">
-                    <strong>Sources:</strong>
-                    <ul>
-                        <li>EPA Class VI UIC Permit Database</li>
-                        <li>State UIC programs (TX, LA, ND, WY)</li>
-                        <li>DOE 45Q project registry</li>
-                    </ul>
-                    <strong>Frequency:</strong> Weekly scan<br>
-                    <strong>Next check:</strong> <span id="ccusNextCheck">2026-02-21</span><br>
-                    <strong>New permits since Jan 1:</strong> 3 detected
-                </div>
-            </div>
+            </a>
 
-            <div class="automation-card">
-                <div class="automation-header">
-                    <h3>💰 Federal Grant Tracker</h3>
-                    <span class="status-badge status-pending">Pending Setup</span>
+            <a class="automation-card-link" href="automation.html#grant-tracker-results">
+                <div class="automation-card">
+                    <div class="automation-header">
+                        <h3>💰 Federal Grant Tracker</h3>
+                        <span class="status-badge status-pending">Pending Setup</span>
+                    </div>
+                    <p class="automation-desc">Monitor DOE, EPA, and state energy department funding opportunities for CCUS, geothermal, and well remediation</p>
+                    <div class="automation-details">
+                        <strong>Target Sources:</strong>
+                        <ul>
+                            <li>DOE FECM (Fossil Energy & Carbon Management)</li>
+                            <li>DOE Geothermal Technologies Office</li>
+                            <li>EPA Orphan Well Program</li>
+                            <li>State energy offices (CA, TX, NM, CO)</li>
+                            <li>ARPA-E energy innovation funding</li>
+                        </ul>
+                        <strong>Value:</strong> $50M+ in annual grant opportunities aligned with Gunnar's expertise<br>
+                        <strong>Status:</strong> Requires Grants.gov API integration + keyword matching system
+                    </div>
                 </div>
-                <p class="automation-desc">Monitor DOE, EPA, and state energy department funding opportunities for CCUS, geothermal, and well remediation</p>
-                <div class="automation-details">
-                    <strong>Target Sources:</strong>
-                    <ul>
-                        <li>DOE FECM (Fossil Energy & Carbon Management)</li>
-                        <li>DOE Geothermal Technologies Office</li>
-                        <li>EPA Orphan Well Program</li>
-                        <li>State energy offices (CA, TX, NM, CO)</li>
-                        <li>ARPA-E energy innovation funding</li>
-                    </ul>
-                    <strong>Value:</strong> $50M+ in annual grant opportunities aligned with Gunnar's expertise<br>
-                    <strong>Status:</strong> Requires Grants.gov API integration + keyword matching system
-                </div>
-            </div>
+            </a>
 
-            <div class="automation-card">
-                <div class="automation-header">
-                    <h3>🎯 Target Account Signals</h3>
-                    <span class="status-badge status-pending">Pending Setup</span>
+            <a class="automation-card-link" href="automation.html#account-signals-results">
+                <div class="automation-card">
+                    <div class="automation-header">
+                        <h3>🎯 Target Account Signals</h3>
+                        <span class="status-badge status-pending">Pending Setup</span>
+                    </div>
+                    <p class="automation-desc">Track buying signals at target accounts: funding rounds, project announcements, executive hires, and expansions</p>
+                    <div class="automation-details">
+                        <strong>Monitoring:</strong>
+                        <ul>
+                            <li>Press releases from target accounts (Occidental, Fervo, Talos)</li>
+                            <li>Executive job changes (drilling VPs, COOs, project managers)</li>
+                            <li>Funding announcements & investor updates</li>
+                            <li>Conference attendance & speaking engagements</li>
+                            <li>Permit filings indicating new projects</li>
+                        </ul>
+                        <strong>Alerts:</strong> Real-time WhatsApp notifications on high-priority signals<br>
+                        <strong>Status:</strong> Requires web scraping + news aggregation APIs
+                    </div>
                 </div>
-                <p class="automation-desc">Track buying signals at target accounts: funding rounds, project announcements, executive hires, and expansions</p>
-                <div class="automation-details">
-                    <strong>Monitoring:</strong>
-                    <ul>
-                        <li>Press releases from target accounts (Occidental, Fervo, Talos)</li>
-                        <li>Executive job changes (drilling VPs, COOs, project managers)</li>
-                        <li>Funding announcements & investor updates</li>
-                        <li>Conference attendance & speaking engagements</li>
-                        <li>Permit filings indicating new projects</li>
-                    </ul>
-                    <strong>Alerts:</strong> Real-time WhatsApp notifications on high-priority signals<br>
-                    <strong>Status:</strong> Requires web scraping + news aggregation APIs
-                </div>
-            </div>
+            </a>
 
-            <div class="automation-card">
-                <div class="automation-header">
-                    <h3>🤝 Warm Intro Finder</h3>
-                    <span class="status-badge status-pending">Pending Setup</span>
+            <a class="automation-card-link" href="automation.html#warm-intro-results">
+                <div class="automation-card">
+                    <div class="automation-header">
+                        <h3>🤝 Warm Intro Finder</h3>
+                        <span class="status-badge status-pending">Pending Setup</span>
+                    </div>
+                    <p class="automation-desc">Identify mutual LinkedIn connections between Gunnar team and decision-makers at target accounts</p>
+                    <div class="automation-details">
+                        <strong>Target Roles:</strong>
+                        <ul>
+                            <li>VP Drilling Operations</li>
+                            <li>Chief Operating Officers</li>
+                            <li>Project Engineering Managers</li>
+                            <li>HSE Directors</li>
+                            <li>Supply Chain / Procurement leads</li>
+                        </ul>
+                        <strong>Output:</strong> Ranked list of warm intro paths with relationship strength scores<br>
+                        <strong>Status:</strong> Requires LinkedIn Sales Navigator or API access
+                    </div>
                 </div>
-                <p class="automation-desc">Identify mutual LinkedIn connections between Gunnar team and decision-makers at target accounts</p>
-                <div class="automation-details">
-                    <strong>Target Roles:</strong>
-                    <ul>
-                        <li>VP Drilling Operations</li>
-                        <li>Chief Operating Officers</li>
-                        <li>Project Engineering Managers</li>
-                        <li>HSE Directors</li>
-                        <li>Supply Chain / Procurement leads</li>
-                    </ul>
-                    <strong>Output:</strong> Ranked list of warm intro paths with relationship strength scores<br>
-                    <strong>Status:</strong> Requires LinkedIn Sales Navigator or API access
-                </div>
-            </div>
+            </a>
 
-            <div class="automation-card">
-                <div class="automation-header">
-                    <h3>🏭 Industry Event Monitor</h3>
-                    <span class="status-badge status-pending">Pending Setup</span>
+            <a class="automation-card-link" href="automation.html#event-monitor-results">
+                <div class="automation-card">
+                    <div class="automation-header">
+                        <h3>🏭 Industry Event Monitor</h3>
+                        <span class="status-badge status-pending">Pending Setup</span>
+                    </div>
+                    <p class="automation-desc">Track relevant conferences, trade shows, and networking events where target prospects will be present</p>
+                    <div class="automation-details">
+                        <strong>Key Events:</strong>
+                        <ul>
+                            <li>SPE (Society of Petroleum Engineers) conferences</li>
+                            <li>GRC (Geothermal Resources Council) annual meeting</li>
+                            <li>Carbon Capture & Storage summits</li>
+                            <li>State oil & gas association events</li>
+                            <li>DOE energy innovation showcases</li>
+                        </ul>
+                        <strong>Features:</strong> Speaker lists, attendee tracking, booth locations<br>
+                        <strong>Status:</strong> Requires event calendar aggregation + attendee list scraping
+                    </div>
                 </div>
-                <p class="automation-desc">Track relevant conferences, trade shows, and networking events where target prospects will be present</p>
-                <div class="automation-details">
-                    <strong>Key Events:</strong>
-                    <ul>
-                        <li>SPE (Society of Petroleum Engineers) conferences</li>
-                        <li>GRC (Geothermal Resources Council) annual meeting</li>
-                        <li>Carbon Capture & Storage summits</li>
-                        <li>State oil & gas association events</li>
-                        <li>DOE energy innovation showcases</li>
-                    </ul>
-                    <strong>Features:</strong> Speaker lists, attendee tracking, booth locations<br>
-                    <strong>Status:</strong> Requires event calendar aggregation + attendee list scraping
-                </div>
-            </div>
+            </a>
 
-            <div class="automation-card">
-                <div class="automation-header">
-                    <h3>📊 Competitor Intelligence</h3>
-                    <span class="status-badge status-pending">Pending Setup</span>
+            <a class="automation-card-link" href="automation.html#competitor-results">
+                <div class="automation-card">
+                    <div class="automation-header">
+                        <h3>📊 Competitor Intelligence</h3>
+                        <span class="status-badge status-pending">Pending Setup</span>
+                    </div>
+                    <p class="automation-desc">Monitor competitor activity, project wins, and capability expansions to identify market gaps and opportunities</p>
+                    <div class="automation-details">
+                        <strong>Tracking:</strong>
+                        <ul>
+                            <li>Competitor press releases & project announcements</li>
+                            <li>Job postings indicating new capabilities or regions</li>
+                            <li>Contract awards (public procurement records)</li>
+                            <li>Partnership announcements with target accounts</li>
+                            <li>Pricing signals from public RFP responses</li>
+                        </ul>
+                        <strong>Value:</strong> Early warning system for competitive threats + white space identification<br>
+                        <strong>Status:</strong> Requires web scraping + NLP for contract databases
+                    </div>
                 </div>
-                <p class="automation-desc">Monitor competitor activity, project wins, and capability expansions to identify market gaps and opportunities</p>
-                <div class="automation-details">
-                    <strong>Tracking:</strong>
-                    <ul>
-                        <li>Competitor press releases & project announcements</li>
-                        <li>Job postings indicating new capabilities or regions</li>
-                        <li>Contract awards (public procurement records)</li>
-                        <li>Partnership announcements with target accounts</li>
-                        <li>Pricing signals from public RFP responses</li>
-                    </ul>
-                    <strong>Value:</strong> Early warning system for competitive threats + white space identification<br>
-                    <strong>Status:</strong> Requires web scraping + NLP for contract databases
-                </div>
-            </div>
+            </a>
 
-            <div class="automation-card">
-                <div class="automation-header">
-                    <h3>📈 Market Trend Analyzer</h3>
-                    <span class="status-badge status-pending">Pending Setup</span>
+            <a class="automation-card-link" href="automation.html#market-trend-results">
+                <div class="automation-card">
+                    <div class="automation-header">
+                        <h3>📈 Market Trend Analyzer</h3>
+                        <span class="status-badge status-pending">Pending Setup</span>
+                    </div>
+                    <p class="automation-desc">Aggregate energy sector news and regulatory changes affecting CCUS, geothermal, and well control demand</p>
+                    <div class="automation-details">
+                        <strong>Data Sources:</strong>
+                        <ul>
+                            <li>Federal Register (new EPA/DOE regulations)</li>
+                            <li>State legislative tracking (carbon mandates, incentives)</li>
+                            <li>Energy sector news feeds (Oil & Gas Journal, etc.)</li>
+                            <li>Investment trends (VC funding in clean energy)</li>
+                            <li>IEA / EIA market reports</li>
+                        </ul>
+                        <strong>Output:</strong> Weekly market intelligence briefing highlighting pipeline opportunities<br>
+                        <strong>Status:</strong> Requires RSS aggregation + AI summarization
+                    </div>
                 </div>
-                <p class="automation-desc">Aggregate energy sector news and regulatory changes affecting CCUS, geothermal, and well control demand</p>
-                <div class="automation-details">
-                    <strong>Data Sources:</strong>
-                    <ul>
-                        <li>Federal Register (new EPA/DOE regulations)</li>
-                        <li>State legislative tracking (carbon mandates, incentives)</li>
-                        <li>Energy sector news feeds (Oil & Gas Journal, etc.)</li>
-                        <li>Investment trends (VC funding in clean energy)</li>
-                        <li>IEA / EIA market reports</li>
-                    </ul>
-                    <strong>Output:</strong> Weekly market intelligence briefing highlighting pipeline opportunities<br>
-                    <strong>Status:</strong> Requires RSS aggregation + AI summarization
-                </div>
-            </div>
+            </a>
         </div>
 
         <div class="actions-section" style="margin-top: 2rem;">

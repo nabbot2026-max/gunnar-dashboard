@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Intelligence - Gunnar Energy</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #f0f4f8;
+            color: #2d3748;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        h1 { font-size: 2.5rem; }
+        .nav-buttons a {
+            display: inline-block;
+            margin-left: 1rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .nav-buttons a:first-child { margin-left: 0; }
+        .nav-primary { background: #667eea; color: white; }
+        .nav-secondary { border: 2px solid #667eea; color: #667eea; }
+        .automation-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
+        }
+        .automation-section h2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+        .status-pill {
+            padding: 0.35rem 1rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+        .status-active { background: #c6f6d5; color: #22543d; }
+        .status-pending { background: #feebc8; color: #7c2d12; }
+        p { margin-bottom: 1rem; line-height: 1.6; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { padding: 0.85rem 0.5rem; border-bottom: 1px solid #e2e8f0; text-align: left; }
+        th { text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; color: #718096; }
+        .opportunity-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .opportunity-link:hover { text-decoration: underline; }
+        .tags { margin-top: 1rem; }
+        .tag {
+            display: inline-block;
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            background: #edf2f7;
+            color: #4a5568;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            .header { flex-direction: column; gap: 1rem; }
+            .nav-buttons { width: 100%; display: flex; flex-direction: column; gap: 0.75rem; }
+            .nav-buttons a { margin-left: 0; text-align: center; }
+            table { display: block; overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>Automation Intelligence</h1>
+                <p style="color:#718096; margin-top:0.35rem;">Snapshot of detections feeding the Gunnar pipeline</p>
+            </div>
+            <div class="nav-buttons">
+                <a href="index.html" class="nav-secondary">← Back to Dashboard</a>
+                <a href="opportunities.html" class="nav-primary">View Opportunities</a>
+            </div>
+        </div>
+
+        <div class="automation-section" id="rfp-scraper-results">
+            <h2>📋 RFP Scraper <span class="status-pill status-active">Active</span></h2>
+            <p>Daily scan across CalGEM, NM OCD, CO COGCC, LA DNR, and DOE orphan-well portals. Highlights below show the most recent contract leads routed to the pipeline.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th>Opportunity</th>
+                        <th>Value</th>
+                        <th>Next Action</th>
+                        <th>Pipeline Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CalGEM (CA)</td>
+                        <td>Urban orphan-well P&A package</td>
+                        <td>$1.2M</td>
+                        <td>Prep Boyle Heights case study & RFP template</td>
+                        <td><a class="opportunity-link" href="opportunities.html#calgem-opportunity">CalGEM Opportunity →</a></td>
+                    </tr>
+                    <tr>
+                        <td>DOE Orphan Well</td>
+                        <td>Federal grant tranche (Round 3)</td>
+                        <td>$750k-$1M</td>
+                        <td>Confirm eligibility, align scope with relief-ready team</td>
+                        <td><a class="opportunity-link" href="opportunities.html#calgem-opportunity">CalGEM Opportunity →</a></td>
+                    </tr>
+                    <tr>
+                        <td>NM OCD</td>
+                        <td>San Juan Basin high-difficulty package</td>
+                        <td>$600k</td>
+                        <td>Identify NM partner, gather site history</td>
+                        <td><a class="opportunity-link" href="opportunities.html#calgem-opportunity">CalGEM Opportunity →</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="tags">
+                <span class="tag">Daily 09:00 PST</span>
+                <span class="tag">WhatsApp alerts on new bids</span>
+            </div>
+        </div>
+
+        <div class="automation-section" id="ccus-monitor-results">
+            <h2>🛢️ CCUS Permit Monitor <span class="status-pill status-active">Active</span></h2>
+            <p>Weekly sweep of EPA Class VI filings + state UIC programs. These detections indicate operators who need relief-well retainers to stay compliant.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Permit ID</th>
+                        <th>Operator / Project</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Pipeline Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>EPA-CLASS6-240201</td>
+                        <td>Occidental / 1PointFive Stratos</td>
+                        <td>Ector County, TX</td>
+                        <td>Pending EPA approval</td>
+                        <td><a class="opportunity-link" href="opportunities.html#occidental-opportunity">Occidental Opportunity →</a></td>
+                    </tr>
+                    <tr>
+                        <td>EPA-CLASS6-240109</td>
+                        <td>Talos Low Carbon CCS Hub</td>
+                        <td>Offshore Louisiana</td>
+                        <td>Public comment period</td>
+                        <td><a class="opportunity-link" href="opportunities.html#talos-opportunity">Talos Opportunity →</a></td>
+                    </tr>
+                    <tr>
+                        <td>LA-DNR-CCS-63</td>
+                        <td>Hy Stor Hydrogen Storage Caverns</td>
+                        <td>Wilkinson County, MS</td>
+                        <td>State review</td>
+                        <td><a class="opportunity-link" href="opportunities.html#hystor-opportunity">Hy Stor Opportunity →</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="tags">
+                <span class="tag">Weekly Friday 17:00 PST</span>
+                <span class="tag">Auto-alert when new filings appear</span>
+            </div>
+        </div>
+
+        <div class="automation-section" id="grant-tracker-results">
+            <h2>💰 Federal Grant Tracker <span class="status-pill status-pending">Pending Enable</span></h2>
+            <p>Ready-to-launch monitor for DOE FECM, DOE Geothermal, EPA, and Grants.gov APIs. Designed to surface CCUS / geothermal / orphan-well funding so we can bundle Gunnar services with federal dollars.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Program</th>
+                        <th>Agency</th>
+                        <th>Amount</th>
+                        <th>Deadline</th>
+                        <th>Pipeline Target</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CarbonSAFE Phase II</td>
+                        <td>DOE FECM</td>
+                        <td>$10M+</td>
+                        <td>Mar 28, 2026</td>
+                        <td><a class="opportunity-link" href="opportunities.html#occidental-opportunity">CCUS Retainers →</a></td>
+                    </tr>
+                    <tr>
+                        <td>Enhanced Geothermal Demonstrations</td>
+                        <td>DOE GTO</td>
+                        <td>$6M</td>
+                        <td>Apr 12, 2026</td>
+                        <td><a class="opportunity-link" href="opportunities.html#fervo-opportunity">Fervo Opportunity →</a></td>
+                    </tr>
+                    <tr>
+                        <td>Orphaned Well Site Grants (Round 3)</td>
+                        <td>DOE / DOI</td>
+                        <td>$150M (state pools)</td>
+                        <td>Rolling</td>
+                        <td><a class="opportunity-link" href="opportunities.html#calgem-opportunity">CalGEM Opportunity →</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="tags">
+                <span class="tag">Daily 08:00 PST (once enabled)</span>
+                <span class="tag">WhatsApp + dashboard export</span>
+            </div>
+        </div>
+
+        <div class="automation-section" id="account-signals-results">
+            <h2>🎯 Target Account Signals <span class="status-pill status-pending">In Build</span></h2>
+            <p>Coming next: aggregated news + exec moves + funding events for Occidental, Talos, Fervo, Hy Stor, CalGEM, etc. This will push hot signals straight into the pipeline timeline.</p>
+            <ul style="margin-left: 1.25rem; line-height: 1.6; color:#4a5568;">
+                <li>Press releases parsed for new projects</li>
+                <li>Executive job changes (Drilling VP, COO, Project Managers)</li>
+                <li>Permit filings and state announcements</li>
+                <li>Major partnerships or funding rounds</li>
+            </ul>
+            <div class="tags" style="margin-top:1rem;">
+                <span class="tag">Alerts fan out to relevant opportunities</span>
+            </div>
+        </div>
+
+        <div class="automation-section" id="warm-intro-results">
+            <h2>🤝 Warm Intro Finder <span class="status-pill status-pending">Requires LinkedIn Access</span></h2>
+            <p>Planned integration to map Gunnar/Nabil networks against decision-makers at target accounts, scoring each intro path. Awaiting LinkedIn Sales Navigator API or third-party connector.</p>
+        </div>
+
+        <div class="automation-section" id="event-monitor-results">
+            <h2>🏭 Industry Event Monitor <span class="status-pill status-pending">Backlog</span></h2>
+            <p>Aggregates SPE, GRC, CCS summits, and state O&G gatherings with attendee lists so we can schedule meetings and content drops around each event.</p>
+        </div>
+
+        <div class="automation-section" id="competitor-results">
+            <h2>📊 Competitor Intelligence <span class="status-pill status-pending">Backlog</span></h2>
+            <p>Competitive telemetry (press releases, job postings, contract wins) to highlight where Wild Well, Boots & Coots, etc., are moving—so we can exploit white space.</p>
+        </div>
+
+        <div class="automation-section" id="market-trend-results">
+            <h2>📈 Market Trend Analyzer <span class="status-pill status-pending">Backlog</span></h2>
+            <p>Weekly regulatory + macro digest (Federal Register, state mandates, IEA/EIA forecasts) with explicit “what this means for Gunnar pipeline” callouts.</p>
+        </div>
+    </div>
+</body>
+</html>
