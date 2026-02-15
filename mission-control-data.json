@@ -1,0 +1,65 @@
+{
+  "updatedAt": "2026-02-15T23:15:00-08:00",
+  "totalTracked": 5,
+  "runningSystems": [
+    "RFP Scraper",
+    "CCUS Monitor",
+    "Cron heartbeat"
+  ],
+  "manualSystems": [
+    "Federal Grant Tracker (manual throttle mode)"
+  ],
+  "blockedSystems": [
+    "LinkedIn Listener (awaiting Sales Navigator access)"
+  ],
+  "gantt": [
+    {
+      "id": "homebrew",
+      "label": "Homebrew baseline audit",
+      "eta": "Feb 18",
+      "progress": 0.4
+    },
+    {
+      "id": "cron-review",
+      "label": "Automation cron review",
+      "eta": "Feb 18",
+      "progress": 0.3
+    },
+    {
+      "id": "restore",
+      "label": "RESTORE.md expansion",
+      "eta": "Feb 19",
+      "progress": 0.25
+    },
+    {
+      "id": "pyenv",
+      "label": "Pyenv + pipx realignment",
+      "eta": "Feb 20",
+      "progress": 0.05
+    },
+    {
+      "id": "disk",
+      "label": "Disk-usage watchdog",
+      "eta": "Feb 21",
+      "progress": 0.1
+    },
+    {
+      "id": "snapshot",
+      "label": "Config snapshot & migration doc",
+      "eta": "Feb 21",
+      "progress": 0.15
+    },
+    {
+      "id": "grants",
+      "label": "Grant tracker throttle fix",
+      "eta": "Feb 22",
+      "progress": 0.02
+    },
+    {
+      "id": "json-feed",
+      "label": "Mission-control JSON feed",
+      "eta": "Feb 23",
+      "progress": 0.02
+    }
+  ]
+}

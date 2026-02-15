@@ -337,16 +337,17 @@
     <section class="card">
         <h2 class="section-title">Background Automation Load</h2>
         <div class="gauge-wrap">
-            <div class="gauge" style="--gauge-value:0.6;">
-                <div class="gauge-number">3 / 5</div>
+            <div class="gauge" id="automationGauge" style="--gauge-value:0.6;">
+                <div class="gauge-number" id="gaugeNumber">3 / 5</div>
             </div>
             <div class="gauge-meta">
-                <p style="margin:0; line-height:1.6; color: var(--muted);">Three automation loops are currently running unattended (RFP Scraper, CCUS Monitor, Cron heartbeat). Federal Grant Tracker is manual-only until the throttle fix lands, and LinkedIn Listener stays blocked pending Sales Navigator access.</p>
+                <p id="automationSummary" style="margin:0; line-height:1.6; color: var(--muted);">Three automation loops are currently running unattended (RFP Scraper, CCUS Monitor, Cron heartbeat).</p>
                 <ul>
-                    <li><strong>Running:</strong> RFP Scraper · CCUS Monitor · Cron heartbeat</li>
-                    <li><strong>Manual/Queued:</strong> Federal grant tracker (429 guard) · Warm intros / LinkedIn listener</li>
-                    <li><strong>Signal:</strong> WhatsApp alerts on success/fail, Mission Control badges when a loop pauses</li>
+                    <li><strong>Running:</strong> <span id="runningText">RFP Scraper · CCUS Monitor · Cron heartbeat</span></li>
+                    <li><strong>Manual/Queued:</strong> <span id="manualText">Federal grant tracker (429 guard)</span></li>
+                    <li><strong>Blocked:</strong> <span id="blockedText">LinkedIn Listener</span></li>
                 </ul>
+                <small id="automationUpdated" style="color: var(--muted); display:block; margin-top:0.5rem;">Updated just now</small>
             </div>
         </div>
     </section>
@@ -597,37 +598,37 @@
     <section class="card">
         <h2 class="section-title">Ops Gantt Snapshot</h2>
         <p style="color: var(--muted); line-height:1.6;">Simple progress view for the active punch list (ETA = target ship date this week).</p>
-        <div class="gantt">
-            <div class="gantt-row">
-                <div class="gantt-label"><span>Homebrew baseline audit</span><span>ETA: Feb 18 • 40%</span></div>
+        <div class="gantt" id="ganttContainer">
+            <div class="gantt-row" data-task-id="homebrew">
+                <div class="gantt-label"><span class="gantt-name">Homebrew baseline audit</span><span><span class="gantt-eta">ETA: Feb 18</span> • <span class="gantt-progress">40%</span></span></div>
                 <div class="gantt-bar-shell"><div class="gantt-bar" style="width:40%;"></div></div>
             </div>
-            <div class="gantt-row">
-                <div class="gantt-label"><span>Automation cron review</span><span>ETA: Feb 18 • 30%</span></div>
+            <div class="gantt-row" data-task-id="cron-review">
+                <div class="gantt-label"><span class="gantt-name">Automation cron review</span><span><span class="gantt-eta">ETA: Feb 18</span> • <span class="gantt-progress">30%</span></span></div>
                 <div class="gantt-bar-shell"><div class="gantt-bar" style="width:30%;"></div></div>
             </div>
-            <div class="gantt-row">
-                <div class="gantt-label"><span>RESTORE.md expansion</span><span>ETA: Feb 19 • 25%</span></div>
+            <div class="gantt-row" data-task-id="restore">
+                <div class="gantt-label"><span class="gantt-name">RESTORE.md expansion</span><span><span class="gantt-eta">ETA: Feb 19</span> • <span class="gantt-progress">25%</span></span></div>
                 <div class="gantt-bar-shell"><div class="gantt-bar" style="width:25%;"></div></div>
             </div>
-            <div class="gantt-row">
-                <div class="gantt-label"><span>Pyenv + pipx realignment</span><span>ETA: Feb 20 • 5%</span></div>
+            <div class="gantt-row" data-task-id="pyenv">
+                <div class="gantt-label"><span class="gantt-name">Pyenv + pipx realignment</span><span><span class="gantt-eta">ETA: Feb 20</span> • <span class="gantt-progress">5%</span></span></div>
                 <div class="gantt-bar-shell"><div class="gantt-bar" style="width:5%;"></div></div>
             </div>
-            <div class="gantt-row">
-                <div class="gantt-label"><span>Disk-usage watchdog</span><span>ETA: Feb 21 • 10%</span></div>
+            <div class="gantt-row" data-task-id="disk">
+                <div class="gantt-label"><span class="gantt-name">Disk-usage watchdog</span><span><span class="gantt-eta">ETA: Feb 21</span> • <span class="gantt-progress">10%</span></span></div>
                 <div class="gantt-bar-shell"><div class="gantt-bar" style="width:10%;"></div></div>
             </div>
-            <div class="gantt-row">
-                <div class="gantt-label"><span>Config snapshot & migration doc</span><span>ETA: Feb 21 • 15%</span></div>
+            <div class="gantt-row" data-task-id="snapshot">
+                <div class="gantt-label"><span class="gantt-name">Config snapshot & migration doc</span><span><span class="gantt-eta">ETA: Feb 21</span> • <span class="gantt-progress">15%</span></span></div>
                 <div class="gantt-bar-shell"><div class="gantt-bar" style="width:15%;"></div></div>
             </div>
-            <div class="gantt-row">
-                <div class="gantt-label"><span>Grant tracker throttle fix</span><span>ETA: Feb 22 • 0%</span></div>
+            <div class="gantt-row" data-task-id="grants">
+                <div class="gantt-label"><span class="gantt-name">Grant tracker throttle fix</span><span><span class="gantt-eta">ETA: Feb 22</span> • <span class="gantt-progress">2%</span></span></div>
                 <div class="gantt-bar-shell"><div class="gantt-bar" style="width:2%;"></div></div>
             </div>
-            <div class="gantt-row">
-                <div class="gantt-label"><span>Mission-control JSON feed</span><span>ETA: Feb 23 • 0%</span></div>
+            <div class="gantt-row" data-task-id="json-feed">
+                <div class="gantt-label"><span class="gantt-name">Mission-control JSON feed</span><span><span class="gantt-eta">ETA: Feb 23</span> • <span class="gantt-progress">2%</span></span></div>
                 <div class="gantt-bar-shell"><div class="gantt-bar" style="width:2%;"></div></div>
             </div>
         </div>
@@ -650,5 +651,63 @@
             </div>
         </div>
     </section>
+    <script>
+        async function refreshOpsDashboard() {
+            try {
+                const res = await fetch('mission-control-data.json?ts=' + Date.now());
+                if (!res.ok) return;
+                const data = await res.json();
+                updateGauge(data);
+                updateGantt(data);
+            } catch (err) {
+                console.error('dashboard refresh failed', err);
+            }
+        }
+
+        function updateGauge(data) {
+            const running = data.runningSystems?.length || 0;
+            const total = data.totalTracked || running;
+            const gauge = document.getElementById('automationGauge');
+            const gaugeNumber = document.getElementById('gaugeNumber');
+            if (gauge && gaugeNumber) {
+                const value = total ? Math.min(running / total, 1) : 0;
+                gauge.style.setProperty('--gauge-value', value);
+                gaugeNumber.textContent = `${running} / ${total}`;
+            }
+            const summary = document.getElementById('automationSummary');
+            if (summary) {
+                summary.textContent = `${running} automation loop${running === 1 ? '' : 's'} currently running unattended.`;
+            }
+            const runningText = document.getElementById('runningText');
+            if (runningText) runningText.textContent = (data.runningSystems || ['—']).join(' · ');
+            const manualText = document.getElementById('manualText');
+            if (manualText) manualText.textContent = (data.manualSystems?.length ? data.manualSystems : ['—']).join(' · ');
+            const blockedText = document.getElementById('blockedText');
+            if (blockedText) blockedText.textContent = (data.blockedSystems?.length ? data.blockedSystems : ['—']).join(' · ');
+            const updated = document.getElementById('automationUpdated');
+            if (updated && data.updatedAt) {
+                updated.textContent = `Updated ${new Date(data.updatedAt).toLocaleString()}`;
+            }
+        }
+
+        function updateGantt(data) {
+            if (!Array.isArray(data.gantt)) return;
+            data.gantt.forEach(item => {
+                const row = document.querySelector(`.gantt-row[data-task-id="${item.id}"]`);
+                if (!row) return;
+                const nameEl = row.querySelector('.gantt-name');
+                if (nameEl && item.label) nameEl.textContent = item.label;
+                const etaEl = row.querySelector('.gantt-eta');
+                if (etaEl && item.eta) etaEl.textContent = `ETA: ${item.eta}`;
+                const progressEl = row.querySelector('.gantt-progress');
+                const bar = row.querySelector('.gantt-bar');
+                if (progressEl) progressEl.textContent = `${Math.round((item.progress || 0) * 100)}%`;
+                if (bar) bar.style.width = `${Math.max(2, Math.min(100, (item.progress || 0) * 100))}%`;
+            });
+        }
+
+        refreshOpsDashboard();
+        setInterval(refreshOpsDashboard, 60000);
+    </script>
 </body>
 </html>
