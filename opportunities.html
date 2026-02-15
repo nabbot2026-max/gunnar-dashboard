@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gunnar Energy - Pipeline Opportunities</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 2rem;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        h1 {
+            color: #1a202c;
+            font-size: 2.5rem;
+        }
+        .back-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            background: #667eea;
+            color: white;
+        }
+        .opportunity {
+            background: #f7fafc;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .opportunity:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+        .opp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+        }
+        .opp-title {
+            flex: 1;
+        }
+        .opp-title h2 {
+            color: #2d3748;
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .opp-title .segment {
+            color: #718096;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+        .opp-value {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 120px;
+        }
+        .opp-value .label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .opp-value .amount {
+            font-size: 1.75rem;
+            font-weight: bold;
+            margin-top: 0.25rem;
+        }
+        .opp-section {
+            margin-bottom: 1.5rem;
+        }
+        .opp-section h3 {
+            color: #2d3748;
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .opp-section p, .opp-section ul {
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        .opp-section ul {
+            margin-left: 1.5rem;
+        }
+        .opp-section li {
+            margin-bottom: 0.5rem;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .info-box {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .info-box .label {
+            font-size: 0.75rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        .info-box .value {
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .tag-high {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+        .tag-medium {
+            background: #feebc8;
+            color: #7c2d12;
+        }
+        .tag-low {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        .next-action {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .next-action strong {
+            color: #667eea;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            .opp-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Pipeline Opportunities</h1>
+            <a href="index.html" class="back-link">← Back to Dashboard</a>
+        </div>
+
+        <!-- Opportunity 1: Occidental / 1PointFive -->
+        <div class="opportunity">
+            <div class="opp-header">
+                <div class="opp-title">
+                    <h2>Occidental Petroleum / 1PointFive</h2>
+                    <p class="segment">CCUS Relief-Well Retainer</p>
+                </div>
+                <div class="opp-value">
+                    <div class="label">Est. Value</div>
+                    <div class="amount">$750K</div>
+                </div>
+            </div>
+
+            <div class="opp-section">
+                <h3>🏢 Company Background</h3>
+                <p>Occidental Petroleum's 1PointFive is one of the largest direct air capture (DAC) and carbon sequestration ventures in the U.S. Their Stratos facility in Texas is designed to capture 500k tons of CO₂/year and inject it into deep saline formations using EPA Class VI wells.</p>
+            </div>
+
+            <div class="opp-section">
+                <h3>💡 The Opportunity</h3>
+                <p>EPA Class VI regulations require operators to have relief-well contingency plans for every injection well. Occidental needs a specialized contractor on retainer who can mobilize within 48-72 hours if blowout or well control issues arise during CO₂ injection operations.</p>
+                <ul>
+                    <li><strong>Retainer structure:</strong> $750K annual standby fee + day rates if mobilized</li>
+                    <li><strong>Coverage:</strong> 24/7 emergency response for 3+ injection sites</li>
+                    <li><strong>Duration:</strong> 3-year initial term with annual renewals</li>
+                </ul>
+            </div>
+
+            <div class="opp-section">
+                <h3>🎯 Why Gunnar?</h3>
+                <p>Gunnar's proven track record in high-risk well interception, directional drilling expertise, and experience with subsurface complexities make them one of the few firms capable of handling CCUS relief operations. Occidental needs contractors who understand both oil & gas well control AND carbon storage geology.</p>
+            </div>
+
+            <div class="opp-section">
+                <h3>📊 Key Metrics</h3>
+                <div class="info-grid">
+                    <div class="info-box">
+                        <div class="label">Stage</div>
+                        <div class="value">Prospecting</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Close Probability</div>
+                        <div class="value">40%</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Timeline</div>
+                        <div class="value">Q2 2026</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Competition</div>
+                        <div class="value">Moderate (2-3 firms)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="opp-section">
+                <h3>⚠️ Risk Factors</h3>
+                <span class="tag tag-medium">Long sales cycle</span>
+                <span class="tag tag-low">Insurance requirements</span>
+                <span class="tag tag-medium">Regulatory delays</span>
+            </div>
+
+            <div class="next-action">
+                <strong>Next Action:</strong> Draft CCUS relief-ready one-pager highlighting Gunnar's intercept capabilities, HSE record, and Class VI compliance knowledge. Request intro to Occidental's VP of Operations or 1PointFive site manager via LinkedIn or industry contacts.
+            </div>
+        </div>
+
+        <!-- Opportunity 2: Talos Low Carbon -->
+        <div class="opportunity">
+            <div class="opp-header">
+                <div class="opp-title">
+                    <h2>Talos Low Carbon Solutions</h2>
+                    <p class="segment">CCUS Relief-Well Retainer</p>
+                </div>
+                <div class="opp-value">
+                    <div class="label">Est. Value</div>
+                    <div class="amount">$750K</div>
+                </div>
+            </div>
+
+            <div class="opp-section">
+                <h3>🏢 Company Background</h3>
+                <p>Talos Energy's low-carbon division is developing offshore CO₂ storage projects in the Gulf of Mexico, leveraging depleted oil & gas reservoirs. They're targeting industrial emitters in Louisiana and Texas for carbon capture partnerships.</p>
+            </div>
+
+            <div class="opp-section">
+                <h3>💡 The Opportunity</h3>
+                <p>Talos is building a portfolio of offshore Class VI storage sites. Offshore relief wells are significantly more complex and expensive than onshore, requiring specialized marine drilling contractors. Gunnar's experience with offshore operations positions them well for this niche.</p>
+                <ul>
+                    <li><strong>Scope:</strong> Standby relief-well services for 2-3 offshore injection sites</li>
+                    <li><strong>Unique challenge:</strong> Subsea wellheads, marine logistics, deepwater drilling</li>
+                    <li><strong>Value add:</strong> Gunnar can offer blended onshore/offshore retainer packages</li>
+                </ul>
+            </div>
+
+            <div class="opp-section">
+                <h3>🎯 Why Gunnar?</h3>
+                <p>Few contractors have both offshore drilling expertise AND relief-well interception capabilities. Talos needs a partner who understands Gulf Coast geology, offshore HSE protocols, and can coordinate with marine drilling contractors during emergencies.</p>
+            </div>
+
+            <div class="opp-section">
+                <h3>📊 Key Metrics</h3>
+                <div class="info-grid">
+                    <div class="info-box">
+                        <div class="label">Stage</div>
+                        <div class="value">Prospecting</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Close Probability</div>
+                        <div class="value">35%</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Timeline</div>
+                        <div class="value">Q3 2026</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Competition</div>
+                        <div class="value">High (offshore specialists)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="opp-section">
+                <h3>⚠️ Risk Factors</h3>
+                <span class="tag tag-high">Offshore complexity</span>
+                <span class="tag tag-medium">Permit delays</span>
+                <span class="tag tag-medium">Capital intensity</span>
+            </div>
+
+            <div class="next-action">
+                <strong>Next Action:</strong> Research Talos's storage partners and project timeline. Request introduction through mutual Gulf Coast contacts or O&G networking events. Emphasize Gunnar's offshore coordination experience.
+            </div>
+        </div>
+
+        <!-- Opportunity 3: Fervo Energy -->
+        <div class="opportunity">
+            <div class="opp-header">
+                <div class="opp-title">
+                    <h2>Fervo Energy</h2>
+                    <p class="segment">Geothermal Intersection Services</p>
+                </div>
+                <div class="opp-value">
+                    <div class="label">Est. Value</div>
+                    <div class="amount">$500K</div>
+                </div>
+            </div>
+
+            <div class="opp-section">
+                <h3>🏢 Company Background</h3>
+                <p>Fervo Energy is pioneering enhanced geothermal systems (EGS) using horizontal drilling techniques borrowed from shale oil & gas. They recently set a world record for geothermal power output at their Nevada pilot plant and are expanding to Utah and other western states.</p>
+            </div>
+
+            <div class="opp-section">
+                <h3>💡 The Opportunity</h3>
+                <p>EGS projects require precise intersection of horizontal wellbores to create subsurface heat exchangers. Fervo's success depends on hitting tight targets thousands of feet underground—exactly Gunnar's specialty. This is a growing market as geothermal scales up nationwide.</p>
+                <ul>
+                    <li><strong>Service scope:</strong> Directional drilling for wellbore intersections in hot rock formations</li>
+                    <li><strong>Technical challenge:</strong> High temperatures (300-400°F), hard rock drilling, precise ranging</li>
+                    <li><strong>Project scale:</strong> 2-4 well pairs per site, multiple sites planned</li>
+                </ul>
+            </div>
+
+            <div class="opp-section">
+                <h3>🎯 Why Gunnar?</h3>
+                <p>Gunnar holds the world record for deepest relief well interception. That same precision is exactly what Fervo needs to connect geothermal wellbores. Oil & gas drilling expertise translates directly to EGS, and Gunnar can offer faster, more cost-effective solutions than traditional geothermal contractors.</p>
+            </div>
+
+            <div class="opp-section">
+                <h3>📊 Key Metrics</h3>
+                <div class="info-grid">
+                    <div class="info-box">
+                        <div class="label">Stage</div>
+                        <div class="value">Prospecting</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Close Probability</div>
+                        <div class="value">50%</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Timeline</div>
+                        <div class="value">Q2 2026</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Competition</div>
+                        <div class="value">Low (few specialists)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="opp-section">
+                <h3>⚠️ Risk Factors</h3>
+                <span class="tag tag-low">Market timing (geothermal boom)</span>
+                <span class="tag tag-medium">Technical unknowns</span>
+                <span class="tag tag-low">Strong value prop</span>
+            </div>
+
+            <div class="next-action">
+                <strong>Next Action:</strong> Send Fervo's VP of Drilling the "world-record intercept" case study. Highlight how Gunnar's ranging technology and directional expertise can reduce EGS costs by 20-30%. Request pilot project scope discussion.
+            </div>
+        </div>
+
+        <!-- Opportunity 4: CalGEM (CA) -->
+        <div class="opportunity">
+            <div class="opp-header">
+                <div class="opp-title">
+                    <h2>CalGEM (California)</h2>
+                    <p class="segment">Orphaned-Well Remediation</p>
+                </div>
+                <div class="opp-value">
+                    <div class="label">Est. Value</div>
+                    <div class="amount">$1.2M</div>
+                </div>
+            </div>
+
+            <div class="opp-section">
+                <h3>🏢 Program Background</h3>
+                <p>California's Geologic Energy Management Division (CalGEM) oversees ~35,000 idle and orphaned oil & gas wells statewide. Federal infrastructure funding has unlocked hundreds of millions for plug-and-abandon (P&A) programs. High-difficulty wells (urban, deep, or leaking) command premium rates.</p>
+            </div>
+
+            <div class="opp-section">
+                <h3>💡 The Opportunity</h3>
+                <p>CalGEM prioritizes wells near schools, homes, and water sources. Many are in urban Los Angeles (Boyle Heights, Baldwin Hills) and require specialized HSE protocols, community engagement, and technical expertise. Gunnar's urban P&A experience (Boyle Heights project) is a major differentiator.</p>
+                <ul>
+                    <li><strong>Funding source:</strong> Federal Infrastructure Bill + California state budget</li>
+                    <li><strong>Project types:</strong> High-difficulty urban wells, leaking legacy sites, deep abandonments</li>
+                    <li><strong>Timeline:</strong> Multi-year program with quarterly RFP cycles</li>
+                </ul>
+            </div>
+
+            <div class="opp-section">
+                <h3>🎯 Why Gunnar?</h3>
+                <p>Gunnar has a proven track record with urban P&A projects (e.g., Boyle Heights elementary school site). They understand community relations, minimize surface disruption, and handle complex subsurface conditions that cause other contractors to walk away. CalGEM needs reliable partners for the toughest wells.</p>
+            </div>
+
+            <div class="opp-section">
+                <h3>📊 Key Metrics</h3>
+                <div class="info-grid">
+                    <div class="info-box">
+                        <div class="label">Stage</div>
+                        <div class="value">Prospecting</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Close Probability</div>
+                        <div class="value">60%</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Timeline</div>
+                        <div class="value">Q1-Q2 2026</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Competition</div>
+                        <div class="value">High (many P&A contractors)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="opp-section">
+                <h3>⚠️ Risk Factors</h3>
+                <span class="tag tag-low">Steady funding pipeline</span>
+                <span class="tag tag-medium">Price competition</span>
+                <span class="tag tag-low">Gunnar has proven case study</span>
+            </div>
+
+            <div class="next-action">
+                <strong>Next Action:</strong> Pull latest CalGEM RFP schedule and high-priority well lists. Draft Boyle Heights case study as marketing collateral. Submit qualifications for next urban P&A package. Monitor DOE orphan-well grant announcements.
+            </div>
+        </div>
+
+        <!-- Opportunity 5: Hy Stor Energy -->
+        <div class="opportunity">
+            <div class="opp-header">
+                <div class="opp-title">
+                    <h2>Hy Stor Energy</h2>
+                    <p class="segment">Solution Mining / Cavern Integrity</p>
+                </div>
+                <div class="opp-value">
+                    <div class="label">Est. Value</div>
+                    <div class="amount">$600K</div>
+                </div>
+            </div>
+
+            <div class="opp-section">
+                <h3>🏢 Company Background</h3>
+                <p>Hy Stor Energy is developing large-scale hydrogen and ammonia storage facilities in Gulf Coast salt domes. Their flagship project in Mississippi will create massive underground caverns for clean fuel storage, serving as critical infrastructure for the hydrogen economy.</p>
+            </div>
+
+            <div class="opp-section">
+                <h3>💡 The Opportunity</h3>
+                <p>Solution mining (dissolving salt to create caverns) requires drilling multiple wells into salt formations, then connecting them to create storage chambers. Wellbore intersections are critical for cavern development. Gunnar's interception and ranging expertise is directly applicable to this emerging market.</p>
+                <ul>
+                    <li><strong>Service needs:</strong> Directional drilling, cavern connection assessment, integrity testing</li>
+                    <li><strong>Market context:</strong> Hydrogen storage infrastructure is exploding with $8B+ in DOE funding</li>
+                    <li><strong>Long-term potential:</strong> Multiple cavern projects nationwide (Gulf Coast, Utah, New Mexico)</li>
+                </ul>
+            </div>
+
+            <div class="opp-section">
+                <h3>🎯 Why Gunnar?</h3>
+                <p>Few contractors understand both salt dome geology AND precision well interception. Hy Stor needs experts who can drill into salt formations, assess cavern connectivity, and ensure structural integrity—all areas where Gunnar excels. First-mover advantage in a growing sector.</p>
+            </div>
+
+            <div class="opp-section">
+                <h3>📊 Key Metrics</h3>
+                <div class="info-grid">
+                    <div class="info-box">
+                        <div class="label">Stage</div>
+                        <div class="value">Prospecting</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Close Probability</div>
+                        <div class="value">45%</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Timeline</div>
+                        <div class="value">Q3 2026</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Competition</div>
+                        <div class="value">Moderate</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="opp-section">
+                <h3>⚠️ Risk Factors</h3>
+                <span class="tag tag-medium">Emerging market (less proven)</span>
+                <span class="tag tag-low">Strong government support</span>
+                <span class="tag tag-medium">Capital-intensive projects</span>
+            </div>
+
+            <div class="next-action">
+                <strong>Next Action:</strong> Map Hy Stor's decision-makers (drilling/engineering leads). Research their Mississippi project timeline and upcoming cavern development phases. Outline hydrogen storage-specific service offering that emphasizes safety and precision.
+            </div>
+        </div>
+
+        <!-- Opportunity 6: Gunnar AI Advisory -->
+        <div class="opportunity">
+            <div class="opp-header">
+                <div class="opp-title">
+                    <h2>Gunnar AI Advisory</h2>
+                    <p class="segment">AI-Powered Well Intervention Consulting</p>
+                </div>
+                <div class="opp-value">
+                    <div class="label">Est. Value</div>
+                    <div class="amount">$250K</div>
+                </div>
+            </div>
+
+            <div class="opp-section">
+                <h3>🏢 Concept Overview</h3>
+                <p>Package Gunnar's decades of well control, interception, and HSE expertise into an AI-assisted advisory service. Leverage OpenClaw + LLMs to offer real-time drilling guidance, risk assessment, and decision support to operators who can't afford full-time Gunnar engineering teams.</p>
+            </div>
+
+            <div class="opp-section">
+                <h3>💡 The Opportunity</h3>
+                <p>Mid-tier operators, international projects, and emerging sectors (geothermal, CCUS) often lack access to top-tier well intervention expertise. Gunnar can democratize its knowledge through subscription-based AI advisory services—think "Gunnar expertise on demand."</p>
+                <ul>
+                    <li><strong>Service tiers:</strong> Basic ($5K/mo) → Premium ($15K/mo) → Enterprise (custom)</li>
+                    <li><strong>Core features:</strong> 24/7 AI chatbot, drilling scenario analysis, HSE protocol generation, ranging calculations</li>
+                    <li><strong>Revenue model:</strong> SaaS subscriptions + per-incident consulting fees</li>
+                </ul>
+            </div>
+
+            <div class="opp-section">
+                <h3>🎯 Why This Works</h3>
+                <p>Gunnar's reputation attracts clients, but many can't afford full-service contracts. AI advisory lowers the barrier while creating a new revenue stream. It also positions Gunnar as an innovation leader in a traditionally conservative industry. Early adopters can become full-service clients later.</p>
+            </div>
+
+            <div class="opp-section">
+                <h3>📊 Key Metrics</h3>
+                <div class="info-grid">
+                    <div class="info-box">
+                        <div class="label">Stage</div>
+                        <div class="value">Ideation</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Close Probability</div>
+                        <div class="value">30% (unproven)</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Timeline</div>
+                        <div class="value">Pilot Q2 2026</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Competition</div>
+                        <div class="value">Low (no direct competitors)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="opp-section">
+                <h3>⚠️ Risk Factors</h3>
+                <span class="tag tag-high">Unproven business model</span>
+                <span class="tag tag-medium">Requires tech investment</span>
+                <span class="tag tag-low">High margin potential</span>
+                <span class="tag tag-medium">Brand risk if quality suffers</span>
+            </div>
+
+            <div class="next-action">
+                <strong>Next Action:</strong> Define offering tiers and pricing. Build internal pilot using OpenClaw + Gunnar data archives (case studies, procedures, lessons learned). Test with 2-3 friendly clients. Assess market appetite through LinkedIn polling and industry events.
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

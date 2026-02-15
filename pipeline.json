@@ -1,0 +1,44 @@
+[
+  {
+    "account": "Occidental / 1PointFive",
+    "segment": "CCUS Relief-Well Retainer",
+    "value": 750000,
+    "stage": "prospecting",
+    "nextAction": "Draft CCUS relief-ready brief, identify Class VI compliance contacts"
+  },
+  {
+    "account": "Talos Low Carbon",
+    "segment": "CCUS Relief-Well Retainer",
+    "value": 750000,
+    "stage": "prospecting",
+    "nextAction": "Find Talos storage partners, request intro via industry peers"
+  },
+  {
+    "account": "Fervo Energy",
+    "segment": "Geothermal Intersection Services",
+    "value": 500000,
+    "stage": "prospecting",
+    "nextAction": "Send intercept case study, ask for pilot scope"
+  },
+  {
+    "account": "CalGEM (CA)",
+    "segment": "Orphaned-Well Remediation",
+    "value": 1200000,
+    "stage": "prospecting",
+    "nextAction": "Compile RFP calendar, prep template response"
+  },
+  {
+    "account": "Hy Stor Energy",
+    "segment": "Solution Mining / Cavern Integrity",
+    "value": 600000,
+    "stage": "prospecting",
+    "nextAction": "Research hydrogen cavern scope, identify project lead"
+  },
+  {
+    "account": "Gunnar AI Advisory",
+    "segment": "AI Consulting",
+    "value": 250000,
+    "stage": "ideation",
+    "nextAction": "Define offering tiers, align with OpenClaw stack"
+  }
+]

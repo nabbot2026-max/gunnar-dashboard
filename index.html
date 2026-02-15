@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gunnar Energy Pipeline Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 2rem;
+        }
+        h1 {
+            color: #1a202c;
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+        .subtitle {
+            color: #718096;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .stat-card h3 {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .charts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .chart-container {
+            background: #f7fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .chart-container h2 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        th {
+            background: #2d3748;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        tr:hover {
+            background: #f7fafc;
+        }
+        .stage-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .stage-prospecting {
+            background: #bee3f8;
+            color: #2c5282;
+        }
+        .stage-ideation {
+            background: #feebc8;
+            color: #7c2d12;
+        }
+        .actions-section {
+            background: #f7fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        .actions-section h2 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+        .actions-section ol {
+            margin-left: 1.5rem;
+        }
+        .actions-section li {
+            margin-bottom: 0.75rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+        .automation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .automation-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .automation-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+            transform: translateY(-2px);
+        }
+        .automation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .automation-header h3 {
+            color: #2d3748;
+            font-size: 1.125rem;
+            margin: 0;
+        }
+        .automation-desc {
+            color: #718096;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .automation-details {
+            font-size: 0.875rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+        .automation-details ul {
+            margin: 0.5rem 0 0.75rem 1.25rem;
+            padding: 0;
+        }
+        .automation-details li {
+            margin-bottom: 0.25rem;
+        }
+        .automation-details strong {
+            color: #2d3748;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .status-active {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        .status-pending {
+            background: #feebc8;
+            color: #7c2d12;
+        }
+        @media (max-width: 768px) {
+            .charts {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 1rem;
+            }
+            .automation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛢️ Gunnar Energy Revenue Dashboard</h1>
+        <p class="subtitle">Last updated: February 15, 2026</p>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <h3>Total Pipeline</h3>
+                <div class="value">$4.05M</div>
+            </div>
+            <div class="stat-card">
+                <h3>Active Opportunities</h3>
+                <div class="value">6</div>
+            </div>
+            <div class="stat-card">
+                <h3>Revenue Streams</h3>
+                <div class="value">5</div>
+            </div>
+            <div class="stat-card">
+                <h3>Stage Focus</h3>
+                <div class="value">Prospecting</div>
+            </div>
+        </div>
+
+        <div class="charts">
+            <div class="chart-container">
+                <h2>Revenue by Segment</h2>
+                <canvas id="segmentChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h2>Pipeline by Stage</h2>
+                <canvas id="stageChart"></canvas>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h2 style="color: #2d3748; margin: 0;">Pipeline Opportunities</h2>
+            <a href="opportunities.html" style="color: #667eea; text-decoration: none; font-weight: 600; padding: 0.5rem 1rem; border: 2px solid #667eea; border-radius: 8px; transition: all 0.3s ease;">View Detailed Breakdowns →</a>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Account</th>
+                    <th>Segment</th>
+                    <th>Value</th>
+                    <th>Stage</th>
+                    <th>Next Action</th>
+                </tr>
+            </thead>
+            <tbody id="pipelineTable">
+            </tbody>
+        </table>
+
+        <div class="actions-section">
+            <h2>🎯 Top 5 Action Items</h2>
+            <ol>
+                <li>Build CCUS relief-ready one-pager + compliance checklist (closes Occidental/Talos conversations)</li>
+                <li>Extract details from Boyle Heights project for P&A case study (supports CalGEM/DOE bids)</li>
+                <li>Script Gunnar YouTube shorts highlighting deepest intercept + HSE projects → drive inbound</li>
+                <li>Pull public Class VI permit filings to identify CCUS operators lacking relief plans</li>
+                <li>Prototype AI-assisted ranging advisory workflow (internal pilot using Gunnar data + OpenClaw)</li>
+            </ol>
+        </div>
+
+        <h2 style="color: #2d3748; margin-bottom: 1rem; margin-top: 2rem;">🤖 Automation Systems</h2>
+        
+        <div class="automation-grid">
+            <div class="automation-card">
+                <div class="automation-header">
+                    <h3>📋 RFP Scraper</h3>
+                    <span class="status-badge status-active">Active</span>
+                </div>
+                <p class="automation-desc">Monitors state procurement portals for well plugging & relief well opportunities</p>
+                <div class="automation-details">
+                    <strong>Monitoring:</strong>
+                    <ul>
+                        <li>CalGEM (CA) - Daily checks</li>
+                        <li>NM OCD (New Mexico) - Daily</li>
+                        <li>CO COGCC (Colorado) - Daily</li>
+                        <li>LA DNR (Louisiana) - Daily</li>
+                        <li>DOE Orphan Well Program - Weekly</li>
+                    </ul>
+                    <strong>Keywords:</strong> "well plugging", "relief well", "P&A", "CCUS", "Class VI"<br>
+                    <strong>Alerts:</strong> WhatsApp notification on new RFPs<br>
+                    <strong>Last check:</strong> <span id="rfpLastCheck">2026-02-15 09:00 PST</span>
+                </div>
+            </div>
+
+            <div class="automation-card">
+                <div class="automation-header">
+                    <h3>🔔 LinkedIn Listener</h3>
+                    <span class="status-badge status-pending">Pending Setup</span>
+                </div>
+                <p class="automation-desc">Tracks mentions of Gunnar Energy Services and leadership for lead opportunities</p>
+                <div class="automation-details">
+                    <strong>Tracking:</strong>
+                    <ul>
+                        <li>"Gunnar Energy Services" mentions</li>
+                        <li>Leadership profiles (views/engagements)</li>
+                        <li>Competitor activity in key sectors</li>
+                        <li>Decision-maker job changes at target accounts</li>
+                    </ul>
+                    <strong>Status:</strong> Requires LinkedIn API setup or Sales Navigator integration
+                </div>
+            </div>
+
+            <div class="automation-card">
+                <div class="automation-header">
+                    <h3>🛢️ CCUS Permit Monitor</h3>
+                    <span class="status-badge status-active">Active</span>
+                </div>
+                <p class="automation-desc">Weekly checks on EPA Class VI filings for upcoming projects needing relief contracts</p>
+                <div class="automation-details">
+                    <strong>Sources:</strong>
+                    <ul>
+                        <li>EPA Class VI UIC Permit Database</li>
+                        <li>State UIC programs (TX, LA, ND, WY)</li>
+                        <li>DOE 45Q project registry</li>
+                    </ul>
+                    <strong>Frequency:</strong> Weekly scan<br>
+                    <strong>Next check:</strong> <span id="ccusNextCheck">2026-02-21</span><br>
+                    <strong>New permits since Jan 1:</strong> 3 detected
+                </div>
+            </div>
+
+            <div class="automation-card">
+                <div class="automation-header">
+                    <h3>📅 Content Scheduler</h3>
+                    <span class="status-badge status-active">Active</span>
+                </div>
+                <p class="automation-desc">OpenClaw heartbeat/cron reminders for YouTube and LinkedIn content releases</p>
+                <div class="automation-details">
+                    <strong>Upcoming:</strong>
+                    <ul>
+                        <li>Feb 18 - YouTube Short: "Deepest Relief Well Intercept Record"</li>
+                        <li>Feb 22 - LinkedIn Post: Boyle Heights P&A case study</li>
+                        <li>Feb 25 - YouTube Short: HSE safety innovations</li>
+                        <li>Mar 1 - LinkedIn Article: CCUS relief readiness checklist</li>
+                    </ul>
+                    <strong>Delivery:</strong> WhatsApp reminders 24hrs before publish
+                </div>
+            </div>
+        </div>
+
+        <div class="actions-section" style="margin-top: 2rem;">
+            <h2>⚙️ Technical Implementation Notes</h2>
+            <ul style="margin-left: 1.5rem; line-height: 1.8; color: #4a5568;">
+                <li><strong>RFP Scraper:</strong> Python script using BeautifulSoup + Selenium for portal navigation. Runs via OpenClaw cron (daily 9am PST). Stores results in SQLite, diffs against previous scan, sends alerts via message tool.</li>
+                <li><strong>CCUS Monitor:</strong> Queries EPA ECHO API + state UIC databases. Weekly cron job (Friday 5pm). Outputs new permits to structured log for manual review.</li>
+                <li><strong>Content Scheduler:</strong> Cron jobs with systemEvent payloads triggering 24hrs before publish dates. Can be upgraded to full social media posting via APIs.</li>
+                <li><strong>LinkedIn Listener:</strong> Awaiting Sales Navigator integration or third-party mention tracking service (Mention.com, Brand24). Manual monitoring interim.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const pipeline = [
+            {
+                "account": "Occidental / 1PointFive",
+                "segment": "CCUS Relief-Well Retainer",
+                "value": 750000,
+                "stage": "prospecting",
+                "nextAction": "Draft CCUS relief-ready brief, identify Class VI compliance contacts"
+            },
+            {
+                "account": "Talos Low Carbon",
+                "segment": "CCUS Relief-Well Retainer",
+                "value": 750000,
+                "stage": "prospecting",
+                "nextAction": "Find Talos storage partners, request intro via industry peers"
+            },
+            {
+                "account": "Fervo Energy",
+                "segment": "Geothermal Intersection Services",
+                "value": 500000,
+                "stage": "prospecting",
+                "nextAction": "Send intercept case study, ask for pilot scope"
+            },
+            {
+                "account": "CalGEM (CA)",
+                "segment": "Orphaned-Well Remediation",
+                "value": 1200000,
+                "stage": "prospecting",
+                "nextAction": "Compile RFP calendar, prep template response"
+            },
+            {
+                "account": "Hy Stor Energy",
+                "segment": "Solution Mining / Cavern Integrity",
+                "value": 600000,
+                "stage": "prospecting",
+                "nextAction": "Research hydrogen cavern scope, identify project lead"
+            },
+            {
+                "account": "Gunnar AI Advisory",
+                "segment": "AI Consulting",
+                "value": 250000,
+                "stage": "ideation",
+                "nextAction": "Define offering tiers, align with OpenClaw stack"
+            }
+        ];
+
+        // Populate table
+        const tableBody = document.getElementById('pipelineTable');
+        pipeline.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><strong>${item.account}</strong></td>
+                <td>${item.segment}</td>
+                <td><strong>$${(item.value / 1000).toFixed(0)}k</strong></td>
+                <td><span class="stage-badge stage-${item.stage}">${item.stage}</span></td>
+                <td>${item.nextAction}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        // Aggregate by segment
+        const segmentData = {};
+        pipeline.forEach(item => {
+            segmentData[item.segment] = (segmentData[item.segment] || 0) + item.value;
+        });
+
+        // Segment chart
+        new Chart(document.getElementById('segmentChart'), {
+            type: 'doughnut',
+            data: {
+                labels: Object.keys(segmentData),
+                datasets: [{
+                    data: Object.values(segmentData),
+                    backgroundColor: [
+                        '#667eea',
+                        '#764ba2',
+                        '#f093fb',
+                        '#4facfe',
+                        '#43e97b'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': $' + (context.parsed / 1000).toFixed(0) + 'k';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Stage chart
+        const stageData = {};
+        pipeline.forEach(item => {
+            stageData[item.stage] = (stageData[item.stage] || 0) + item.value;
+        });
+
+        new Chart(document.getElementById('stageChart'), {
+            type: 'bar',
+            data: {
+                labels: Object.keys(stageData).map(s => s.charAt(0).toUpperCase() + s.slice(1)),
+                datasets: [{
+                    label: 'Pipeline Value',
+                    data: Object.values(stageData),
+                    backgroundColor: '#667eea'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + (value / 1000).toFixed(0) + 'k';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return '$' + (context.parsed.y / 1000).toFixed(0) + 'k';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
