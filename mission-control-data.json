@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-02-15T23:15:00-08:00",
+  "updatedAt": "2026-02-15T23:20:00-08:00",
   "totalTracked": 5,
   "runningSystems": [
     "RFP Scraper",
@@ -12,6 +12,27 @@
   "blockedSystems": [
     "LinkedIn Listener (awaiting Sales Navigator access)"
   ],
+  "selfDevelopment": {
+    "completed": 4,
+    "total": 12,
+    "inProgress": [
+      "Homebrew baseline audit",
+      "Automation cron review",
+      "RESTORE.md expansion"
+    ],
+    "backlogCount": 5
+  },
+  "tokenUsage": {
+    "window": "Feb 2026",
+    "used": 52000,
+    "limit": 120000,
+    "dailyAvg": 3400,
+    "notes": [
+      "GPT-5.1 Codex main brain",
+      "Haiku heartbeat hourly",
+      "Brave search + web_fetch for browsing"
+    ]
+  },
   "gantt": [
     {
       "id": "homebrew",

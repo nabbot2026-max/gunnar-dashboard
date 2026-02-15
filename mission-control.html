@@ -254,9 +254,20 @@
         }
         .gauge-wrap {
             display: flex;
-            gap: 2rem;
-            align-items: center;
+            gap: 1.5rem;
+            align-items: stretch;
             flex-wrap: wrap;
+        }
+        .gauge-block {
+            flex: 1;
+            min-width: 260px;
+            display: flex;
+            gap: 1.25rem;
+            align-items: center;
+            padding: 0.75rem;
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-radius: 16px;
+            background: rgba(148, 163, 184, 0.04);
         }
         .gauge {
             --gauge-value: 0.6;
@@ -335,19 +346,49 @@
     </section>
 
     <section class="card">
-        <h2 class="section-title">Background Automation Load</h2>
+        <h2 class="section-title">Background Ops Gauges</h2>
         <div class="gauge-wrap">
-            <div class="gauge" id="automationGauge" style="--gauge-value:0.6;">
-                <div class="gauge-number" id="gaugeNumber">3 / 5</div>
+            <div class="gauge-block">
+                <div class="gauge" id="automationGauge" style="--gauge-value:0.6;">
+                    <div class="gauge-number" id="gaugeNumber">3 / 5</div>
+                </div>
+                <div class="gauge-meta">
+                    <h3 style="margin:0 0 0.35rem 0; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size:0.85rem;">Automation Loops</h3>
+                    <p id="automationSummary" style="margin:0; line-height:1.6; color: var(--muted);">Three automation loops are currently running unattended (RFP Scraper, CCUS Monitor, Cron heartbeat).</p>
+                    <ul>
+                        <li><strong>Running:</strong> <span id="runningText">RFP Scraper · CCUS Monitor · Cron heartbeat</span></li>
+                        <li><strong>Manual/Queued:</strong> <span id="manualText">Federal grant tracker (429 guard)</span></li>
+                        <li><strong>Blocked:</strong> <span id="blockedText">LinkedIn Listener</span></li>
+                    </ul>
+                    <small id="automationUpdated" style="color: var(--muted); display:block; margin-top:0.5rem;">Updated just now</small>
+                </div>
             </div>
-            <div class="gauge-meta">
-                <p id="automationSummary" style="margin:0; line-height:1.6; color: var(--muted);">Three automation loops are currently running unattended (RFP Scraper, CCUS Monitor, Cron heartbeat).</p>
-                <ul>
-                    <li><strong>Running:</strong> <span id="runningText">RFP Scraper · CCUS Monitor · Cron heartbeat</span></li>
-                    <li><strong>Manual/Queued:</strong> <span id="manualText">Federal grant tracker (429 guard)</span></li>
-                    <li><strong>Blocked:</strong> <span id="blockedText">LinkedIn Listener</span></li>
-                </ul>
-                <small id="automationUpdated" style="color: var(--muted); display:block; margin-top:0.5rem;">Updated just now</small>
+            <div class="gauge-block">
+                <div class="gauge" id="selfDevGauge" style="--gauge-value:0.3;">
+                    <div class="gauge-number" id="selfDevGaugeNumber">4 / 12</div>
+                </div>
+                <div class="gauge-meta">
+                    <h3 style="margin:0 0 0.35rem 0; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size:0.85rem;">Self-Development</h3>
+                    <p id="selfDevSummary" style="margin:0; line-height:1.6; color: var(--muted);">Four items closed, three active.</p>
+                    <ul>
+                        <li><strong>In progress:</strong> <span id="selfDevInProgress">Homebrew audit · Cron review · RESTORE.md</span></li>
+                        <li><strong>Backlog:</strong> <span id="selfDevBacklog">5 queued</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="gauge-block">
+                <div class="gauge" id="tokenGauge" style="--gauge-value:0.45;">
+                    <div class="gauge-number" id="tokenGaugeNumber">45%</div>
+                </div>
+                <div class="gauge-meta">
+                    <h3 style="margin:0 0 0.35rem 0; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size:0.85rem;">Token Budget</h3>
+                    <p id="tokenSummary" style="margin:0; line-height:1.6; color: var(--muted);">Using 45% of the Feb allocation.</p>
+                    <ul>
+                        <li><strong>Window:</strong> <span id="tokenWindow">Feb 2026</span></li>
+                        <li><strong>Daily avg:</strong> <span id="tokenDaily">3.4k tokens</span></li>
+                        <li><strong>Notes:</strong> <span id="tokenNotes">GPT-5.1 Codex primary · Haiku heartbeat hourly</span></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
@@ -657,14 +698,16 @@
                 const res = await fetch('mission-control-data.json?ts=' + Date.now());
                 if (!res.ok) return;
                 const data = await res.json();
-                updateGauge(data);
+                updateAutomationGauge(data);
+                updateSelfDevGauge(data);
+                updateTokenGauge(data);
                 updateGantt(data);
             } catch (err) {
                 console.error('dashboard refresh failed', err);
             }
         }
 
-        function updateGauge(data) {
+        function updateAutomationGauge(data) {
             const running = data.runningSystems?.length || 0;
             const total = data.totalTracked || running;
             const gauge = document.getElementById('automationGauge');
@@ -688,6 +731,50 @@
             if (updated && data.updatedAt) {
                 updated.textContent = `Updated ${new Date(data.updatedAt).toLocaleString()}`;
             }
+        }
+
+        function updateSelfDevGauge(data) {
+            const sd = data.selfDevelopment || {};
+            const completed = sd.completed ?? 0;
+            const total = sd.total || completed || 1;
+            const gauge = document.getElementById('selfDevGauge');
+            const gaugeNumber = document.getElementById('selfDevGaugeNumber');
+            if (gauge && gaugeNumber) {
+                const value = Math.min(completed / total, 1);
+                gauge.style.setProperty('--gauge-value', value);
+                gaugeNumber.textContent = `${completed} / ${total}`;
+            }
+            const summary = document.getElementById('selfDevSummary');
+            if (summary) summary.textContent = `${completed} item${completed === 1 ? '' : 's'} closed, ${(sd.inProgress?.length || 0)} active.`;
+            const inProgress = document.getElementById('selfDevInProgress');
+            if (inProgress) inProgress.textContent = (sd.inProgress?.length ? sd.inProgress : ['—']).join(' · ');
+            const backlog = document.getElementById('selfDevBacklog');
+            if (backlog) backlog.textContent = sd.backlogCount != null ? `${sd.backlogCount} queued` : '—';
+        }
+
+        function updateTokenGauge(data) {
+            const usage = data.tokenUsage || {};
+            const used = usage.used || 0;
+            const limit = usage.limit || used || 1;
+            const ratio = Math.min(used / limit, 1);
+            const gauge = document.getElementById('tokenGauge');
+            const gaugeNumber = document.getElementById('tokenGaugeNumber');
+            if (gauge && gaugeNumber) {
+                gauge.style.setProperty('--gauge-value', ratio);
+                const percent = Math.round(ratio * 100);
+                gaugeNumber.textContent = `${percent}%`;
+            }
+            const summary = document.getElementById('tokenSummary');
+            if (summary) {
+                const percent = Math.round(ratio * 100);
+                summary.textContent = `Using ${percent}% of the ${usage.window || 'current'} allocation (${used.toLocaleString()} / ${limit.toLocaleString()} tokens).`;
+            }
+            const windowEl = document.getElementById('tokenWindow');
+            if (windowEl) windowEl.textContent = usage.window || '—';
+            const daily = document.getElementById('tokenDaily');
+            if (daily) daily.textContent = usage.dailyAvg ? `${usage.dailyAvg.toLocaleString()} tokens` : '—';
+            const notes = document.getElementById('tokenNotes');
+            if (notes) notes.textContent = (usage.notes?.length ? usage.notes : ['—']).join(' · ');
         }
 
         function updateGantt(data) {
