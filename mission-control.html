@@ -388,6 +388,70 @@
     </section>
 
     <section class="card">
+        <h2 class="section-title">Ops Runbook</h2>
+        <div class="system-grid">
+            <div class="system-card">
+                <h4>Model Chain Playbook</h4>
+                <p style="color: var(--muted); line-height: 1.6;">Route costly work to the right model mix so Opus only handles strategy. This mirrors the Mac Mini guide’s phased model plan.</p>
+                <ul class="chip-list">
+                    <li>Brain: Claude Opus 4.6 (default conversations)</li>
+                    <li>Heartbeat: Claude 3.5 Haiku · every 1h</li>
+                    <li>Browse/RSS: DeepSeek V3</li>
+                    <li>Coding: GPT-5.2 Codex xHigh</li>
+                    <li>Vision: Gemini 2.5 Flash</li>
+                </ul>
+                <p style="color: var(--muted); line-height: 1.6;">DM prompts: “Switch browse tasks to DeepSeek V3”, “Route coding to GPT-5.2 Codex”, “Set heartbeat to Haiku hourly.”</p>
+            </div>
+            <div class="system-card">
+                <h4>Gateway Control & Restarts</h4>
+                <p style="color: var(--muted); line-height: 1.6;">Use the launchd service + CLI for lifecycle management.</p>
+                <ul class="chip-list">
+                    <li><code>openclaw gateway status</code> (health)</li>
+                    <li><code>openclaw gateway restart</code> (apply config)</li>
+                    <li><code>launchctl start ai.openclaw.gateway</code></li>
+                    <li><code>openclaw status --all</code> (full report)</li>
+                    <li><code>openclaw channels status --probe</code></li>
+                </ul>
+                <p style="color: var(--muted); line-height: 1.6;">Keep <code>bind=loopback</code>; never run with auth=none.</p>
+            </div>
+            <div class="system-card">
+                <h4>Updates, Security & Diagnostics</h4>
+                <p style="color: var(--muted); line-height: 1.6;">Follow the Mac Mini guide cadence.</p>
+                <ul class="chip-list">
+                    <li><code>npm install -g openclaw@latest</code></li>
+                    <li><code>openclaw doctor --fix</code></li>
+                    <li><code>openclaw security audit --deep</code></li>
+                    <li><code>openclaw status</code> / <code>health</code></li>
+                    <li><code>openclaw message send …</code> (smoke test)</li>
+                </ul>
+                <p style="color: var(--muted); line-height: 1.6;">Audit skills before install; respect SOUL.md critical constraints.</p>
+            </div>
+            <div class="system-card">
+                <h4>Backups & Restore</h4>
+                <p style="color: var(--muted); line-height: 1.6;">Hourly git sync for workspace + daily data drops to Drive.</p>
+                <ul class="chip-list">
+                    <li><code>cd ~/.openclaw/workspace && git add -A</code></li>
+                    <li><code>git commit -m "auto" && git push</code></li>
+                    <li>Use cron to trigger DB dumps → Drive</li>
+                    <li>Maintain <code>RESTORE.md</code> with rebuild steps</li>
+                </ul>
+                <p style="color: var(--muted); line-height: 1.6;">If compromised: stop gateway, revoke API keys, rotate Discord/Telegram tokens, review logs.</p>
+            </div>
+            <div class="system-card">
+                <h4>Remote Access & Emergencies</h4>
+                <p style="color: var(--muted); line-height: 1.6;">Tailscale + SSH keeps the Mac Mini manageable without exposing ports.</p>
+                <ul class="chip-list">
+                    <li><code>ssh -L 18789:127.0.0.1:18789 user@100.x.x.x</code></li>
+                    <li><code>openclaw dashboard --no-open</code> → use tokenized URL</li>
+                    <li><code>openclaw gateway stop</code> / <code>pkill -f openclaw</code> (panic)</li>
+                    <li>Re-enable services via launchctl after fix</li>
+                </ul>
+                <p style="color: var(--muted); line-height: 1.6;">Keep Apple Keychain/Bitwarden up to date; rotate API keys quarterly.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
         <h2 class="section-title">Implementation Notes</h2>
         <div style="display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
             <div>
