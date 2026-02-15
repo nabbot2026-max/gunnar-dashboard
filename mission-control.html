@@ -252,6 +252,46 @@
             border-radius: 999px;
             background: linear-gradient(90deg, #67e8f9, #a855f7);
         }
+        .gauge-wrap {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .gauge {
+            --gauge-value: 0.6;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: conic-gradient(#67e8f9 calc(var(--gauge-value) * 360deg), rgba(148, 163, 184, 0.2) 0);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 25px rgba(2,6,23,0.6);
+        }
+        .gauge::after {
+            content: "";
+            position: absolute;
+            width: 65%;
+            height: 65%;
+            border-radius: 50%;
+            background: var(--bg);
+        }
+        .gauge-number {
+            position: relative;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        .gauge-meta {
+            flex: 1;
+            min-width: 250px;
+        }
+        .gauge-meta ul {
+            margin: 0.5rem 0 0 1.25rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
         @media (max-width: 768px) {
             header { flex-direction: column; align-items: flex-start; }
             .nav-links { width: 100%; }
@@ -292,6 +332,23 @@
             <p class="stat-value">08:00 PT</p>
             <p class="stat-subtext">Grant tracker + RFP diff in queue</p>
         </article>
+    </section>
+
+    <section class="card">
+        <h2 class="section-title">Background Automation Load</h2>
+        <div class="gauge-wrap">
+            <div class="gauge" style="--gauge-value:0.6;">
+                <div class="gauge-number">3 / 5</div>
+            </div>
+            <div class="gauge-meta">
+                <p style="margin:0; line-height:1.6; color: var(--muted);">Three automation loops are currently running unattended (RFP Scraper, CCUS Monitor, Cron heartbeat). Federal Grant Tracker is manual-only until the throttle fix lands, and LinkedIn Listener stays blocked pending Sales Navigator access.</p>
+                <ul>
+                    <li><strong>Running:</strong> RFP Scraper · CCUS Monitor · Cron heartbeat</li>
+                    <li><strong>Manual/Queued:</strong> Federal grant tracker (429 guard) · Warm intros / LinkedIn listener</li>
+                    <li><strong>Signal:</strong> WhatsApp alerts on success/fail, Mission Control badges when a loop pauses</li>
+                </ul>
+            </div>
+        </div>
     </section>
 
     <section class="card">
