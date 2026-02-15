@@ -391,62 +391,61 @@
         <h2 class="section-title">Ops Runbook</h2>
         <div class="system-grid">
             <div class="system-card">
-                <h4>Model Chain Playbook</h4>
-                <p style="color: var(--muted); line-height: 1.6;">Route costly work to the right model mix so Opus only handles strategy. This mirrors the Mac Mini guide’s phased model plan.</p>
+                <h4>Model Stack (Current)</h4>
+                <p style="color: var(--muted); line-height: 1.6;">Live chat is riding <strong>openai/gpt-5.1-codex</strong> this session, with <strong>anthropic/claude-sonnet-4-5</strong> set as the default brain. The hourly heartbeat already runs on <strong>Claude 3.5 Haiku</strong>, and all browse/fetch work stays on Brave Search + <code>web_fetch</code>. We only swap models when a thread needs it.</p>
                 <ul class="chip-list">
-                    <li>Brain: Claude Opus 4.6 (default conversations)</li>
-                    <li>Heartbeat: Claude 3.5 Haiku · every 1h</li>
-                    <li>Browse/RSS: DeepSeek V3</li>
-                    <li>Coding: GPT-5.2 Codex xHigh</li>
-                    <li>Vision: Gemini 2.5 Flash</li>
+                    <li>Brain default: Claude Sonnet 4.5</li>
+                    <li>Session override: GPT-5.1 Codex</li>
+                    <li>Heartbeat: Claude 3.5 Haiku · 1h</li>
+                    <li>Web search: Brave API + web_fetch</li>
                 </ul>
-                <p style="color: var(--muted); line-height: 1.6;">DM prompts: “Switch browse tasks to DeepSeek V3”, “Route coding to GPT-5.2 Codex”, “Set heartbeat to Haiku hourly.”</p>
+                <p style="color: var(--muted); line-height: 1.6;">Quick prompts we actually use: “Switch this convo back to Sonnet”, “Leave heartbeat on Haiku hourly”, “Use the Brave key when you search.”</p>
             </div>
             <div class="system-card">
-                <h4>Gateway Control & Restarts</h4>
-                <p style="color: var(--muted); line-height: 1.6;">Use the launchd service + CLI for lifecycle management.</p>
+                <h4>Automation Jobs (Live)</h4>
+                <p style="color: var(--muted); line-height: 1.6;">Only the working scrapers are listed here. RFP Scraper runs daily at 09:00 and CCUS Permits every Friday at 17:00. Federal Grant Tracker is wired but still rate-limited (429) so we trigger it by hand until the spacing fix lands.</p>
                 <ul class="chip-list">
-                    <li><code>openclaw gateway status</code> (health)</li>
-                    <li><code>openclaw gateway restart</code> (apply config)</li>
-                    <li><code>launchctl start ai.openclaw.gateway</code></li>
-                    <li><code>openclaw status --all</code> (full report)</li>
+                    <li><code>cd gunnar-automation && python3 run_automation.py --schedule daily --send-alerts</code></li>
+                    <li><code>python3 run_automation.py --schedule weekly --send-alerts</code></li>
+                    <li><code>python3 scrapers/grant_tracker.py</code> (manual retry)</li>
+                    <li>Logs: <code>tail -f logs/gunnar_automation_*.log</code></li>
+                    <li>DB: <code>sqlite3 data/gunnar_automation.db</code></li>
+                </ul>
+                <p style="color: var(--muted); line-height: 1.6;">If a cron misses twice, run the command above and re-send alerts via <code>alerts/dispatch_alerts.py</code>.</p>
+            </div>
+            <div class="system-card">
+                <h4>Gateway Control & Health</h4>
+                <p style="color: var(--muted); line-height: 1.6;">Launchd keeps ai.openclaw.gateway alive on the Mac mini. These are the only commands we use in practice.</p>
+                <ul class="chip-list">
+                    <li><code>openclaw gateway status</code> / <code>openclaw status --all</code></li>
+                    <li><code>openclaw gateway restart</code> (after config)</li>
+                    <li><code>launchctl start|stop ai.openclaw.gateway</code></li>
                     <li><code>openclaw channels status --probe</code></li>
+                    <li><code>openclaw dashboard --no-open</code> → paste tokenized URL</li>
                 </ul>
-                <p style="color: var(--muted); line-height: 1.6;">Keep <code>bind=loopback</code>; never run with auth=none.</p>
+                <p style="color: var(--muted); line-height: 1.6;">Gateway stays bound to loopback with token auth. Never drop to <code>auth: none</code>.</p>
             </div>
             <div class="system-card">
-                <h4>Updates, Security & Diagnostics</h4>
-                <p style="color: var(--muted); line-height: 1.6;">Follow the Mac Mini guide cadence.</p>
+                <h4>Deployables & Backups</h4>
+                <p style="color: var(--muted); line-height: 1.6;">Dashboards ship from <code>dashboards/gunnar</code> (GitHub Pages repo). Automations run locally with SQLite + JSONL history. Current routine:</p>
                 <ul class="chip-list">
-                    <li><code>npm install -g openclaw@latest</code></li>
-                    <li><code>openclaw doctor --fix</code></li>
-                    <li><code>openclaw security audit --deep</code></li>
-                    <li><code>openclaw status</code> / <code>health</code></li>
-                    <li><code>openclaw message send …</code> (smoke test)</li>
+                    <li><code>cd dashboards/gunnar && git add . && git commit && git push</code></li>
+                    <li>Zip <code>gunnar-automation/data</code> to Drive every Friday</li>
+                    <li>Track API keys in Apple Keychain</li>
+                    <li>Keep workspace restore steps in <code>RESTORE.md</code></li>
                 </ul>
-                <p style="color: var(--muted); line-height: 1.6;">Audit skills before install; respect SOUL.md critical constraints.</p>
+                <p style="color: var(--muted); line-height: 1.6;">If something breaks: stop the gateway, copy <code>data/</code>, redeploy from git + Drive backup, then restart.</p>
             </div>
             <div class="system-card">
-                <h4>Backups & Restore</h4>
-                <p style="color: var(--muted); line-height: 1.6;">Hourly git sync for workspace + daily data drops to Drive.</p>
+                <h4>Remote & Emergency</h4>
+                <p style="color: var(--muted); line-height: 1.6;">Tailscale already links the Mac mini to the laptop/phone for remote fixes.</p>
                 <ul class="chip-list">
-                    <li><code>cd ~/.openclaw/workspace && git add -A</code></li>
-                    <li><code>git commit -m "auto" && git push</code></li>
-                    <li>Use cron to trigger DB dumps → Drive</li>
-                    <li>Maintain <code>RESTORE.md</code> with rebuild steps</li>
+                    <li><code>ssh -L 18789:127.0.0.1:18789 user@100.x.x.x</code> (remote dashboard)</li>
+                    <li><code>openclaw gateway stop</code> / <code>pkill -f openclaw</code></li>
+                    <li><code>openclaw doctor --fix</code>, <code>openclaw security audit --deep</code></li>
+                    <li>Rotate Anthropic / Brave / Discord / Telegram tokens if compromised</li>
                 </ul>
-                <p style="color: var(--muted); line-height: 1.6;">If compromised: stop gateway, revoke API keys, rotate Discord/Telegram tokens, review logs.</p>
-            </div>
-            <div class="system-card">
-                <h4>Remote Access & Emergencies</h4>
-                <p style="color: var(--muted); line-height: 1.6;">Tailscale + SSH keeps the Mac Mini manageable without exposing ports.</p>
-                <ul class="chip-list">
-                    <li><code>ssh -L 18789:127.0.0.1:18789 user@100.x.x.x</code></li>
-                    <li><code>openclaw dashboard --no-open</code> → use tokenized URL</li>
-                    <li><code>openclaw gateway stop</code> / <code>pkill -f openclaw</code> (panic)</li>
-                    <li>Re-enable services via launchctl after fix</li>
-                </ul>
-                <p style="color: var(--muted); line-height: 1.6;">Keep Apple Keychain/Bitwarden up to date; rotate API keys quarterly.</p>
+                <p style="color: var(--muted); line-height: 1.6;">After any incident: revoke API keys, reset bot tokens, review <code>/tmp/openclaw</code> logs, then bring the gateway back up.</p>
             </div>
         </div>
     </section>
